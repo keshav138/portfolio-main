@@ -50,12 +50,12 @@ export default function Cursor() {
     >
       {/* 
         Inner div handles the shape and hover transitions. 
-        Vim block cursor by default, flattens into an underscore on hover.
+        Vim block cursor by default, turns into a square dot on hover.
       */}
       <div 
         className={`transition-all duration-200 ease-out origin-top-left ${
           isHovering 
-            ? 'w-3 h-1 mt-4 bg-[#96FFFF]' 
+            ? 'w-3 h-3 -ml-1.5 -mt-1.5 bg-[#96FFFF]' 
             : 'w-2.5 h-5 bg-white animate-pulse'
         }`}
       />

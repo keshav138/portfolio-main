@@ -7,7 +7,7 @@
   --color-text: #F0F0F0;
   
   --font-display: "Barlow Condensed", sans-serif;
-  --font-mono: "Space Mono", monospace;
+  --font-mono: "JetBrains Mono", monospace;
   --font-header: "DotGothic16", sans-serif;
   --font-pixel: "Pixelify Sans", sans-serif;
 }
@@ -78,6 +78,38 @@ body {
 @keyframes easter-egg-splash {
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
+}
+
+@keyframes slot-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes slot-scroll-reverse {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-slot-scroll {
+  animation: slot-scroll 25s linear infinite;
+}
+
+.animate-slot-scroll-reverse {
+  animation: slot-scroll-reverse 25s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+.animate-slot-scroll:hover,
+.animate-slot-scroll-reverse:hover {
+  animation-play-state: paused;
 }
 
 .easter-egg-text {

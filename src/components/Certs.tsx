@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextPlugin } from 'gsap/TextPlugin';
+import SectionDivider from './SectionDivider';
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -119,9 +120,7 @@ export default function Certs() {
 
   return (
     <section ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col justify-center px-8 md:px-24 py-20">
-      <div className="absolute top-8 left-8 font-header text-[#7B61FF] text-xl opacity-50">
-        05 // CERTS_&_TRAINING
-      </div>
+      <SectionDivider title="05 // CERTS_&_TRAINING" className="absolute top-8 left-0 px-8" />
 
       <div className="font-mono text-xs md:text-sm text-[#F0F0F0] leading-relaxed max-w-4xl">
         

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SectionDivider from './SectionDivider';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,7 +58,7 @@ export default function About() {
   }, [visibleLines]);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden">
+    <section ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col items-center justify-center px-4 py-24 md:px-8 md:py-24 overflow-hidden">
       
       <style>{`
         @keyframes scanline {
@@ -74,12 +75,9 @@ export default function About() {
            style={{ backgroundImage: 'linear-gradient(#7B61FF 1px, transparent 1px), linear-gradient(90deg, #7B61FF 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
 
-      <div className="w-full max-w-5xl z-10">
-        <div className="font-header text-[#7B61FF] text-xl mb-6 opacity-50 pl-4 md:pl-0 flex items-center gap-4">
-          <span>02 // ABOUT</span>
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-[#7B61FF]/50 to-transparent"></div>
-        </div>
+      <SectionDivider title="02 // ABOUT" className="absolute top-8 left-0 px-8" />
 
+      <div className="w-full max-w-5xl z-10 mt-8 md:mt-0">
         {/* Dossier Panel */}
         <div 
           ref={panelRef}

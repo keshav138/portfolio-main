@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SectionDivider from './SectionDivider';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -128,9 +129,7 @@ export default function Education() {
 
   return (
     <section ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col pt-24 pb-12 overflow-hidden">
-      <div className="absolute top-8 left-8 font-header text-[#7B61FF] text-xl opacity-50 z-10">
-        06 // EDUCATION_LOG
-      </div>
+      <SectionDivider title="06 // EDUCATION_LOG" className="absolute top-8 left-0 px-8" />
 
       <div className="w-full flex flex-col border-t border-[#222] mt-12">
         {EDUCATION_DATA.map((edu, index) => {
