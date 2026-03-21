@@ -10,6 +10,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Certs from './components/Certs';
+import CodingStats from './components/CodingStats';
 import Education from './components/Education';
 import Contact from './components/Contact';
 
@@ -89,6 +90,14 @@ export default function App() {
           animation: marquee 30s linear infinite;
           width: 200%;
         }
+        @keyframes drawGraph {
+          0% { stroke-dashoffset: 300; }
+          100% { stroke-dashoffset: 0; }
+        }
+        .animate-graph-line {
+          stroke-dasharray: 300;
+          animation: drawGraph 5s linear infinite;
+        }
       `}</style>
 
       {/* Fixed Top Detail Strip */}
@@ -133,6 +142,7 @@ export default function App() {
         <Skills />
         <Projects />
         <Certs />
+        <CodingStats />
         <Education />
         <Contact />
       </main>

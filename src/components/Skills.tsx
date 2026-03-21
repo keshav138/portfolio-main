@@ -77,32 +77,8 @@ const ASCII_SIDE_RIGHT = `██████████████████
 ███████████████████▓▒▒░░`;
 
 export default function Skills() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const cards = cardsRef.current;
-    gsap.set(cards, { y: 30, opacity: 0 });
-
-    ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.to(cards, {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          stagger: 0.1,
-        });
-      }
-    });
-  }, []);
-
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center justify-center px-4 py-24 md:px-8 overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center justify-center px-4 py-24 md:px-8 overflow-hidden">
       
       {/* Background Grid Lines */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10 z-0"
@@ -139,10 +115,9 @@ export default function Skills() {
 
         {/* Bento Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-          {SKILL_MODULES.map((module, i) => (
+          {SKILL_MODULES.map((module) => (
             <div
               key={module.id}
-              ref={el => cardsRef.current[i] = el}
               className={`group relative flex flex-col bg-[#050505] border transition-all duration-300 hover:-translate-y-1 ${module.span} ${
                 module.primary 
                   ? 'border-[#7B61FF]/40 hover:border-[#7B61FF]/80 hover:shadow-[0_0_30px_rgba(123,97,255,0.15)]' 

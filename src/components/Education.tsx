@@ -1,9 +1,15 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SectionDivider from './SectionDivider';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const EDU_ASCII = `███████╗██████╗ ██╗   ██╗
+██╔════╝██╔══██╗██║   ██║
+█████╗  ██║  ██║██║   ██║
+██╔══╝  ██║  ██║██║   ██║
+███████╗██████╔╝╚██████╔╝
+╚══════╝╚═════╝  ╚═════╝ ■`;
 
 const EDUCATION_DATA = [
   {
@@ -58,151 +64,139 @@ const EDUCATION_DATA = [
 
 export default function Education() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const rowsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const colsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    rowsRef.current.forEach((row, index) => {
-      if (!row) return;
+    colsRef.current.forEach((col, index) => {
+      if (!col) return;
       
-      const asciiWrapper = row.querySelector('.floating-mark');
-      const content = row.querySelector('.content-container');
-      const blinker = row.querySelector('.blinking-label');
-
-      gsap.set(asciiWrapper, { 
-        opacity: 0, 
-        scale: 0.8, 
-        rotationX: 15, 
-        rotationY: index % 2 === 0 ? 15 : -15 
-      });
-      gsap.set(content, { opacity: 0, y: 50 });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: row,
-          start: 'top 75%',
-        }
-      });
-
-      tl.to(asciiWrapper, {
-        opacity: 1,
-        scale: 1,
-        rotationX: 0,
-        rotationY: 0,
-        duration: 1,
-        ease: 'power3.out',
-        onComplete: () => {
-          // Continuous 3D floating animation
-          gsap.to(asciiWrapper, {
-            y: "-=15",
-            x: index % 2 === 0 ? "+=10" : "-=10",
-            rotationX: 5,
-            rotationY: index % 2 === 0 ? -5 : 5,
-            rotationZ: index % 2 === 0 ? 2 : -2,
-            duration: 3 + (index * 0.5),
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-          });
-          
-          // Consistent steady blinking animation
-          if (blinker) {
-            gsap.to(blinker, {
-              opacity: 0,
-              duration: 0.8,
-              repeat: -1,
-              yoyo: true,
-              ease: "steps(1)"
-            });
+      // Slide in the column itself
+      const direction = index === 0 ? -100 : 100;
+      
+      gsap.fromTo(col,
+        { opacity: 0, x: direction },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          delay: index * 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: col,
+            start: 'top 85%',
           }
         }
-      })
-      .to(content, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      }, "-=0.6");
+      );
+      
+      const elements = col.querySelectorAll('.animate-in');
+      
+      gsap.fromTo(elements, 
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          delay: (index * 0.15) + 0.3, // Start after column starts sliding
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: col,
+            start: 'top 85%',
+          }
+        }
+      );
+      
+      const asciiArt = col.querySelector('.ascii-art');
+      if (asciiArt) {
+        gsap.to(asciiArt, {
+          y: "-=10",
+          rotationZ: index % 2 === 0 ? 1 : -1,
+          duration: 3 + (index * 0.5),
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+      }
     });
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col pt-24 pb-12 overflow-hidden">
-      <SectionDivider title="06 // EDUCATION_LOG" className="absolute top-8 left-0 px-8" />
-
-      <div className="w-full flex flex-col border-t border-[#222] mt-12">
-        {EDUCATION_DATA.map((edu, index) => {
-          const isEven = index % 2 !== 0;
-
-          return (
-            <div 
-              key={edu.id}
-              ref={el => rowsRef.current[index] = el}
-              className="flex flex-col lg:flex-row border-b border-[#222] relative group min-h-[500px]"
+    <section ref={containerRef} className="relative w-full bg-[#0A0A0A] border-y border-[#222] my-24 flex flex-col md:flex-row min-h-[350px] overflow-hidden">
+      {/* Title Strip */}
+      <div 
+        ref={el => colsRef.current[0] = el}
+        className="w-full md:w-1/4 p-6 lg:p-8 border-b md:border-b-0 md:border-r border-[#222] flex flex-col justify-between relative group bg-[#050505] min-h-[250px] md:min-h-[350px]"
+      >
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        
+        {/* Top: ASCII Art */}
+        <div className="flex justify-center items-center h-1/2 relative z-10 pt-4">
+          <div className="animate-in ascii-art relative flex flex-col items-center">
+            <pre 
+              className="font-mono text-[8px] md:text-[10px] lg:text-[12px] font-bold leading-tight drop-shadow-[0_0_15px_rgba(193,30,56,0.5)] bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(90deg, #C11E38, #8A2387)' }}
             >
-              {/* ASCII Pane */}
-              <div 
-                className={`ascii-container w-full lg:w-1/2 p-12 md:p-24 flex items-center justify-center border-b lg:border-b-0 border-[#222] relative z-10 ${isEven ? 'lg:order-2 lg:border-l' : 'lg:border-r'}`}
-                style={{ perspective: '1000px' }}
-              >
-                {/* Subtle grid background */}
-                <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px] overflow-hidden"></div>
-                
-                <div className="floating-mark relative z-10" style={{ transformStyle: 'preserve-3d' }}>
-                  <pre 
-                    className={`relative z-10 font-mono text-[10px] sm:text-[14px] md:text-[20px] xl:text-[28px] leading-[1.1] font-bold bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient}`}
-                  >
-                    {edu.asciiScore}
-                  </pre>
-                  {/* Glow behind ASCII to avoid filter issues on the text itself */}
-                  <div 
-                    className={`absolute inset-0 bg-gradient-to-br ${edu.gradient} opacity-20 blur-2xl -z-10`}
-                  ></div>
+              {EDU_ASCII}
+            </pre>
+          </div>
+        </div>
 
-                  <div 
-                    className={`blinking-label absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 font-pixel text-2xl md:text-4xl bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient}`}
-                    style={{ 
-                      transform: 'translateZ(30px)'
-                    }}
-                  >
-                    {edu.shortLabel}
-                  </div>
-                </div>
-              </div>
+        {/* Bottom: Details */}
+        <div className="flex flex-col justify-end pb-4 relative z-10 mt-8 md:mt-0 h-1/2">
+          <div className="animate-in font-mono text-[9px] lg:text-[10px] text-[#555] tracking-widest uppercase mb-3">
+            // LOG_07
+          </div>
+          <span className="animate-in font-mono text-xs lg:text-sm text-[#888] tracking-widest lowercase">
+            education
+          </span>
+        </div>
+      </div>
 
-              {/* Content Pane */}
-              <div className={`content-container w-full lg:w-1/2 p-8 md:p-16 flex flex-col justify-center relative overflow-hidden z-10 ${isEven ? 'lg:order-1' : ''}`}>
-                {/* Background Watermark Number */}
-                <div className="absolute -right-10 -bottom-10 text-[150px] md:text-[250px] font-header font-bold text-[#111] select-none z-0 transition-transform duration-700 group-hover:scale-110">
-                  {edu.id}
-                </div>
+      {/* Education Strips */}
+      {EDUCATION_DATA.map((edu, index) => (
+        <div 
+          key={edu.id}
+          ref={el => colsRef.current[index + 1] = el}
+          className="w-full md:w-1/4 p-6 lg:p-8 border-b md:border-b-0 md:border-r last:border-r-0 border-[#222] flex flex-col justify-between relative group hover:bg-[#111] transition-colors duration-500 min-h-[250px] md:min-h-[350px] overflow-hidden"
+        >
+          {/* Background Watermark Number */}
+          <div className="absolute -right-4 -bottom-4 text-[100px] lg:text-[150px] font-header font-bold text-[#1a1a1a] select-none z-0 transition-transform duration-700 group-hover:scale-110 pointer-events-none">
+            {edu.id}
+          </div>
 
-                <div className="z-10 relative">
-                  <div className="flex flex-wrap items-center gap-4 mb-8">
-                    <span className="font-mono text-xs text-[#888] tracking-widest uppercase border border-[#333] px-4 py-1.5 rounded-full">
-                      {edu.timeline}
-                    </span>
-                    <span className="font-mono text-xs text-[#888] tracking-widest uppercase">
-                      // {edu.type}
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#F0F0F0] mb-6 leading-[0.85] tracking-tight uppercase">
-                    {edu.institution}
-                  </h3>
-
-                  <div className="mb-8 flex">
-                    <span className="font-mono text-xs text-[#888] tracking-widest uppercase border border-[#333] px-4 py-1.5 rounded-full">
-                      {edu.degree}
-                    </span>
-                  </div>
-                </div>
+          {/* Top: ASCII Score */}
+          <div className="flex justify-center items-center h-1/2 relative z-10 pt-4">
+            <div className="ascii-art relative" style={{ transformStyle: 'preserve-3d' }}>
+              <pre className={`font-mono text-[6px] lg:text-[8px] xl:text-[10px] leading-tight font-bold bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]`}>
+                {edu.asciiScore}
+              </pre>
+              <div className={`absolute -bottom-4 -right-4 font-pixel text-xl bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient} animate-pulse`}>
+                {edu.shortLabel}
               </div>
             </div>
-          );
-        })}
-      </div>
+          </div>
+
+          {/* Bottom: Details */}
+          <div className="flex flex-col justify-end pb-4 relative z-10 mt-8 md:mt-0 h-1/2">
+            <div className="animate-in flex flex-wrap gap-2 mb-4">
+              <span className="font-mono text-[9px] lg:text-[10px] text-[#888] tracking-widest uppercase border border-[#333] px-2 py-1 rounded-full bg-[#0A0A0A]">
+                {edu.timeline}
+              </span>
+              <span className="font-mono text-[9px] lg:text-[10px] text-[#666] tracking-widest uppercase py-1">
+                // {edu.type}
+              </span>
+            </div>
+            <h3 className="animate-in font-display text-2xl lg:text-3xl xl:text-4xl text-[#F0F0F0] mb-3 leading-[0.9] uppercase tracking-tight">
+              {edu.institution}
+            </h3>
+            <span className="animate-in font-mono text-xs lg:text-sm text-[#AAA]">
+              {edu.degree}
+            </span>
+          </div>
+        </div>
+      ))}
     </section>
   );
 }

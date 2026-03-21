@@ -1,164 +1,192 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TextPlugin } from 'gsap/TextPlugin';
-import SectionDivider from './SectionDivider';
+import { Cloud, Code, Server, Database, ShieldCheck, Terminal } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
-const CERT_FILES = [
-  "drwxr-xr-x  2 keshav admin  4096 Mar 17 10:00 .",
-  "drwxr-xr-x  6 keshav admin  4096 Mar 17 09:50 ..",
-  "-rw-r--r--  1 keshav admin 12045 Jan 15 2024 NPTEL_Cloud_Computing.pdf",
-  "-rw-r--r--  1 keshav admin  8432 Nov 10 2023 iamneo_Full_Stack.pdf",
-  "-rw-r--r--  1 keshav admin  9120 Oct 05 2023 iamneo_Backend.pdf",
-  "-rw-r--r--  1 keshav admin 15670 Aug 20 2023 Google_Data_Analytics.pdf",
-  "drwxr-xr-x  2 keshav admin  4096 Mar 17 10:05 training",
+const CERTIFICATIONS = [
+  {
+    id: 'cert-1',
+    title: 'Cloud Computing',
+    issuer: 'NPTEL',
+    date: 'Jan 2024',
+    icon: Cloud,
+    color: '#00E5FF',
+    gradient: 'from-[#00E5FF] to-[#0077FF]'
+  },
+  {
+    id: 'cert-2',
+    title: 'Full Stack',
+    issuer: 'iamneo',
+    date: 'Nov 2023',
+    icon: Code,
+    color: '#7B61FF',
+    gradient: 'from-[#7B61FF] to-[#FF00FF]'
+  },
+  {
+    id: 'cert-3',
+    title: 'Backend',
+    issuer: 'iamneo',
+    date: 'Oct 2023',
+    icon: Server,
+    color: '#FF0055',
+    gradient: 'from-[#FF0055] to-[#FFAA00]'
+  },
+  {
+    id: 'cert-4',
+    title: 'Data Analytics',
+    issuer: 'Google',
+    date: 'Aug 2023',
+    icon: Database,
+    color: '#00FF88',
+    gradient: 'from-[#00FF88] to-[#00A8FF]'
+  }
 ];
 
-const TRAINING_FILES = [
-  "drwxr-xr-x  2 keshav admin  4096 Mar 17 10:05 .",
-  "drwxr-xr-x  2 keshav admin  4096 Mar 17 10:00 ..",
-  "-rw-r--r--  1 keshav admin  5400 Jul 12 2023 CodeQuery_Advanced_SQL.txt",
-  "-rw-r--r--  1 keshav admin  6200 Jun 01 2023 NeoColab_Python_DSA.txt",
+const TRAINING = [
+  {
+    id: 'train-1',
+    title: 'Advanced SQL',
+    issuer: 'CodeQuery',
+    date: 'Jul 2023',
+    icon: Database,
+    color: '#FFAA00',
+    gradient: 'from-[#FFAA00] to-[#FF0055]'
+  },
+  {
+    id: 'train-2',
+    title: 'Python DSA',
+    issuer: 'NeoColab',
+    date: 'Jun 2023',
+    icon: Terminal,
+    color: '#00E5FF',
+    gradient: 'from-[#00E5FF] to-[#7B61FF]'
+  }
 ];
 
 export default function Certs() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const cmd1Ref = useRef<HTMLSpanElement>(null);
-  const cursor1Ref = useRef<HTMLSpanElement>(null);
-  const total1Ref = useRef<HTMLDivElement>(null);
-  const certsRef = useRef<HTMLDivElement>(null);
-  
-  const cmd2ContainerRef = useRef<HTMLDivElement>(null);
-  const cmd2Ref = useRef<HTMLSpanElement>(null);
-  const cursor2Ref = useRef<HTMLSpanElement>(null);
-  const total2Ref = useRef<HTMLDivElement>(null);
-  const trainingRef = useRef<HTMLDivElement>(null);
-  
-  const promptRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 60%',
-      }
-    });
-
-    const certLines = certsRef.current?.querySelectorAll('.cert-line');
-    const trainingLines = trainingRef.current?.querySelectorAll('.cert-line');
-
-    // Initial state
-    gsap.set([total1Ref.current, total2Ref.current, promptRef.current, cmd2ContainerRef.current], { opacity: 0 });
-    gsap.set(cursor2Ref.current, { opacity: 0 });
-    if (certLines) gsap.set(certLines, { opacity: 0, y: 5 });
-    if (trainingLines) gsap.set(trainingLines, { opacity: 0, y: 5 });
-    
-    const typeSpeed = 0.04; // seconds per character
-
-    const cmd1Text = "keshav@portfolio:~$ ls -la ./certifications/";
-    const cmd2Text = "keshav@portfolio:~/certifications$ ls -la ./training/";
-
-    // 1. Type first command
-    tl.to(cmd1Ref.current, {
-      duration: cmd1Text.length * typeSpeed,
-      text: cmd1Text,
-      ease: "none"
-    })
-    // Hide first cursor
-    .to(cursor1Ref.current, { opacity: 0, duration: 0.1 })
-    // 2. Show total 1
-    .to(total1Ref.current, { opacity: 1, duration: 0.2 })
-    // 3. Reveal cert files
-    .to(certLines, {
-      opacity: 1,
-      y: 0,
-      duration: 0.3,
-      stagger: 0.1,
-      ease: "power2.out"
-    }, "+=0.2")
-    // 4. Prepare and type second command
-    .to(cmd2ContainerRef.current, { opacity: 1, duration: 0.1 }, "+=0.5")
-    .to(cursor2Ref.current, { opacity: 1, duration: 0.1 })
-    .to(cmd2Ref.current, {
-      duration: cmd2Text.length * typeSpeed,
-      text: cmd2Text,
-      ease: "none"
-    })
-    // Hide second cursor
-    .to(cursor2Ref.current, { opacity: 0, duration: 0.1 })
-    // 5. Show total 2
-    .to(total2Ref.current, { opacity: 1, duration: 0.2 })
-    // 6. Reveal training files
-    .to(trainingLines, {
-      opacity: 1,
-      y: 0,
-      duration: 0.3,
-      stagger: 0.1,
-      ease: "power2.out"
-    }, "+=0.2")
-    // 7. Show final prompt
-    .to(promptRef.current, { opacity: 1, duration: 0.2 }, "+=0.5");
-
-    return () => {
-      tl.kill();
-    };
-  }, []);
-
-  const formatLine = (line: string) => {
-    return {
-      __html: line
-        .replace(/NPTEL|iamneo|Google|CodeQuery|NeoColab/g, match => `<span class="text-[#F0F0F0] font-bold">${match}</span>`)
-        .replace(/\.pdf|\.txt/g, match => `<span class="text-[#7B61FF]">${match}</span>`)
-        .replace(/drwxr-xr-x|-rw-r--r--/g, match => `<span class="opacity-50">${match}</span>`)
-    };
-  };
-
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col justify-center px-8 md:px-24 py-20">
-      <SectionDivider title="05 // CERTS_&_TRAINING" className="absolute top-8 left-0 px-8" />
+    <section className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col justify-center px-6 md:px-12 lg:px-24 py-32 overflow-hidden">
+      
+      {/* Subtle Background Text */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-0 opacity-[0.03] text-white overflow-hidden">
+        <div className="font-display text-[15vw] leading-[0.8] whitespace-nowrap -ml-[10vw]">CERTIFICATIONS</div>
+        <div className="font-display text-[15vw] leading-[0.8] whitespace-nowrap ml-[20vw] text-transparent" style={{ WebkitTextStroke: '2px white' }}>ACHIEVEMENTS</div>
+        <div className="font-display text-[15vw] leading-[0.8] whitespace-nowrap -ml-[5vw]">TRAINING</div>
+      </div>
 
-      <div className="font-mono text-xs md:text-sm text-[#F0F0F0] leading-relaxed max-w-4xl">
-        
-        {/* Command 1 */}
-        <div className="text-[#7B61FF] mb-4 min-h-[1.5em] flex items-center">
-          <span ref={cmd1Ref}></span>
-          <span ref={cursor1Ref} className="inline-block w-2 h-4 bg-[#7B61FF] ml-1 animate-pulse" />
+      <div className="w-full max-w-7xl mx-auto mt-12 relative z-10">
+
+        {/* Evident Title */}
+        <div className="mb-20">
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl text-[#F0F0F0] uppercase tracking-tighter mb-6">
+            Credentials
+          </h2>
+          <div className="flex items-center gap-4">
+            <span className="w-12 h-[2px] bg-[#7B61FF]"></span>
+            <p className="font-mono text-sm md:text-base text-[#888] uppercase tracking-widest">
+              Certifications & Professional Training
+            </p>
+          </div>
         </div>
         
-        {/* Total 1 */}
-        <div className="text-[#888888] mb-2" ref={total1Ref}>total 64</div>
-        
-        {/* Cert Lines */}
-        <div ref={certsRef} className="mb-8">
-          {CERT_FILES.map((line, i) => (
-            <div key={i} className="cert-line min-h-[1.5em] whitespace-pre-wrap" dangerouslySetInnerHTML={formatLine(line)} />
-          ))}
+        {/* Certifications Section */}
+        <div className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <ShieldCheck className="w-6 h-6 text-[#555]" />
+            <h2 className="font-mono text-sm md:text-base text-[#888] uppercase tracking-[0.2em]">Certifications</h2>
+            <div className="flex-grow h-[1px] bg-[#222]"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {CERTIFICATIONS.map((cert, index) => {
+              const Icon = cert.icon;
+              return (
+                <div 
+                  key={cert.id}
+                  className="group relative p-8 bg-[#050505] border border-[#333] hover:border-[#555] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[280px]"
+                >
+                  {/* Top Glow Line (Default Visible) */}
+                  <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r ${cert.gradient} opacity-100`} />
+                  
+                  {/* Background Glow (Default Visible) */}
+                  <div className={`absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${cert.gradient} opacity-[0.05] blur-3xl pointer-events-none`} />
+
+                  {/* Large Subtle Background Icon */}
+                  <Icon className="absolute -bottom-8 -right-8 w-48 h-48 text-white opacity-[0.02] pointer-events-none transform -rotate-12" />
+
+                  <div className="flex justify-between items-start mb-12 relative z-10">
+                    <Icon className="w-8 h-8 text-white" />
+                    <span className="font-mono text-[10px] md:text-xs text-[#888] uppercase tracking-widest">
+                      {cert.date}
+                    </span>
+                  </div>
+
+                  <div className="relative z-10">
+                    <h3 className="font-display text-2xl md:text-3xl text-[#F0F0F0] mb-3 uppercase tracking-tight leading-[1.1]">
+                      {cert.title}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cert.color }}></span>
+                      <p className="font-mono text-xs md:text-sm text-[#888] uppercase tracking-widest">
+                        {cert.issuer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Command 2 */}
-        <div ref={cmd2ContainerRef} className="text-[#7B61FF] mb-4 min-h-[1.5em] flex items-center">
-          <span ref={cmd2Ref}></span>
-          <span ref={cursor2Ref} className="inline-block w-2 h-4 bg-[#7B61FF] ml-1 animate-pulse" />
-        </div>
-        
-        {/* Total 2 */}
-        <div className="text-[#888888] mb-2" ref={total2Ref}>total 16</div>
-        
-        {/* Training Lines */}
-        <div ref={trainingRef} className="mb-8">
-          {TRAINING_FILES.map((line, i) => (
-            <div key={i} className="cert-line min-h-[1.5em] whitespace-pre-wrap" dangerouslySetInnerHTML={formatLine(line)} />
-          ))}
-        </div>
+        {/* Training Section */}
+        <div>
+          <div className="flex items-center gap-4 mb-8">
+            <Terminal className="w-6 h-6 text-[#555]" />
+            <h2 className="font-mono text-sm md:text-base text-[#888] uppercase tracking-[0.2em]">Training</h2>
+            <div className="flex-grow h-[1px] bg-[#222]"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {TRAINING.map((train, index) => {
+              const Icon = train.icon;
+              return (
+                <div 
+                  key={train.id}
+                  className="group relative p-8 bg-[#050505] border border-[#333] hover:border-[#555] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px]"
+                >
+                  {/* Top Glow Line (Default Visible) */}
+                  <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r ${train.gradient} opacity-100`} />
+                  
+                  {/* Background Glow (Default Visible) */}
+                  <div className={`absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${train.gradient} opacity-[0.05] blur-3xl pointer-events-none`} />
 
-        {/* Final Prompt */}
-        <div ref={promptRef} className="text-[#7B61FF] min-h-[1.5em] flex items-center">
-          keshav@portfolio:~/certifications$ <span className="inline-block w-2 h-4 bg-[#7B61FF] ml-1 animate-pulse" />
+                  {/* Large Subtle Background Icon */}
+                  <Icon className="absolute -bottom-8 -right-8 w-48 h-48 text-white opacity-[0.02] pointer-events-none transform -rotate-12" />
+
+                  <div className="flex justify-between items-start mb-12 relative z-10">
+                    <Icon className="w-8 h-8 text-white" />
+                    <span className="font-mono text-[10px] md:text-xs text-[#888] uppercase tracking-widest">
+                      {train.date}
+                    </span>
+                  </div>
+
+                  <div className="relative z-10">
+                    <h3 className="font-display text-2xl md:text-3xl text-[#F0F0F0] mb-3 uppercase tracking-tight leading-[1.1]">
+                      {train.title}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ backgroundColor: train.color }}></span>
+                      <p className="font-mono text-xs md:text-sm text-[#888] uppercase tracking-widest">
+                        {train.issuer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
       </div>
