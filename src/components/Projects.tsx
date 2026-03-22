@@ -460,7 +460,7 @@ export default function Projects() {
                 </div>
 
                 {/* Right: ASCII Art */}
-                <div className="hidden md:flex w-full md:w-1/2 justify-center items-center select-none">
+                <div className="flex w-full md:w-1/2 justify-center items-center select-none">
                   {getAsciiArt(index)}
                 </div>
 

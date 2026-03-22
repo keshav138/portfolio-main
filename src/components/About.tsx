@@ -55,7 +55,7 @@ export default function About() {
                 I'm someone who gets quietly obsessed with things — really obsessed — whether that's a problem I can't crack or a subject I've just discovered. I'm also the kind of person who finds something interesting in almost everything, which is either a great quality or the reason I'm up at 2am reading about something completely unrelated to what I should be doing.
               </p>
               <p>
-                I take the work seriously. I don't always take myself seriously. That balance feels about right. Headed somewhere at the intersection of data, machine learning, and backend engineering — which is either a very specific plan or a very fancy way of saying I want to do it all. <span className="bg-[#7B61FF] text-white px-2 py-0.5 font-medium inline-block transform -rotate-1" style={{ borderRadius: '255px 15px 225px 15px/15px 225px 15px 255px' }}>Probably both.</span>
+                I take the work seriously. I don't always take myself seriously. That balance feels about right. Headed somewhere at the intersection of data, ML engineering, and backend engineering — which is either a very specific plan or a very fancy way of saying I want to do it all. <span className="bg-[#7B61FF] text-white px-2 py-0.5 font-medium inline-block transform -rotate-1" style={{ borderRadius: '255px 15px 225px 15px/15px 225px 15px 255px' }}>Probably both.</span>
               </p>
             </div>
 

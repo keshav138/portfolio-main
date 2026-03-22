@@ -204,10 +204,10 @@ export function F1Art({ liners = [
   "team orders. he didn't listen. we know."
 ] }) {
   return (
-    <div className="ascii-root ascii-piece">
+    <div className="ascii-root ascii-piece w-full md:w-auto">
       <style>{styles}</style>
-      <p className="ascii-label">01 · f1 performance prediction</p>
-      <pre>
+      <p className="ascii-label hidden md:block">01 · f1 performance prediction</p>
+      <pre className="hidden md:block">
         <S c="c-m">{"  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  ┌───────────────────────────────────────────────────┐"}</S><S c="c-m">{"  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  │"}</S><S c="c-mm">{"  ╔═════════════════════════════════════════════╗  "}</S><S c="c-dd">{"│"}</S><S c="c-m">{"  ·\n"}</S>
@@ -247,10 +247,10 @@ export function TaskMasterArt({ liners = [
   "deadline was friday. it is tuesday. godspeed."
 ] }) {
   return (
-    <div className="ascii-root ascii-piece">
+    <div className="ascii-root ascii-piece w-full md:w-auto">
       <style>{styles}</style>
-      <p className="ascii-label">02 · taskmaster — real-time task platform</p>
-      <pre>
+      <p className="ascii-label hidden md:block">02 · taskmaster — real-time task platform</p>
+      <pre className="hidden md:block">
         <S c="c-m">{"  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  ┌───────────────────────────────────────────────────┐"}</S><S c="c-m">{"  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  │"}</S><S c="c-mm">{"  ╔═════════════════════════════════════════════╗  "}</S><S c="c-dd">{"│"}</S><S c="c-m">{"  ·\n"}</S>
@@ -290,10 +290,10 @@ export function SuperstoreArt({ liners = [
   "furniture department said hold my beer."
 ] }) {
   return (
-    <div className="ascii-root ascii-piece">
+    <div className="ascii-root ascii-piece w-full md:w-auto">
       <style>{styles}</style>
-      <p className="ascii-label">03 · superstore sales analytics</p>
-      <pre>
+      <p className="ascii-label hidden md:block">03 · superstore sales analytics</p>
+      <pre className="hidden md:block">
         <S c="c-m">{"  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  ┌───────────────────────────────────────────────────┐"}</S><S c="c-m">{"  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  │"}</S><S c="c-mm">{"  ┌───────────────────────────────────────────┐    "}</S><S c="c-dd">{"│"}</S><S c="c-m">{"  ·\n"}</S>
@@ -330,10 +330,10 @@ export function IPLArt({ liners = [
   "toss jeet ke field karega. lost by 8 wickets."
 ] }) {
   return (
-    <div className="ascii-root ascii-piece">
+    <div className="ascii-root ascii-piece w-full md:w-auto">
       <style>{styles}</style>
-      <p className="ascii-label">04 · ipl analytics dashboard</p>
-      <pre>
+      <p className="ascii-label hidden md:block">04 · ipl analytics dashboard</p>
+      <pre className="hidden md:block">
         <S c="c-m">{"  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  ┌───────────────────────────────────────────────────┐"}</S><S c="c-m">{"  ·\n"}</S>
         <S c="c-m">{"·"}</S><S c="c-dd">{"  │"}</S><S c="c-mm">{"  ╔═══════════════════════════════════════════╗    "}</S><S c="c-dd">{"│"}</S><S c="c-m">{"  ·\n"}</S>

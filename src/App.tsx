@@ -104,16 +104,9 @@ export default function App() {
       <div className="fixed top-0 w-full border-b border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md py-1.5 overflow-hidden z-50">
         <div className="flex whitespace-nowrap animate-marquee font-mono text-[9px] md:text-[10px] text-[#F0F0F0]/60 tracking-[0.2em]">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="flex items-center">
-              <span className="mx-8">///</span>
-              <span>KESHAV MAIYA</span>
-              <span className="mx-8">///</span>
-              <span>CREATIVE DEVELOPER</span>
-              <span className="mx-8">///</span>
-              <span>PORTFOLIO 2026</span>
-              <span className="mx-8">///</span>
-              <span>INITIATING SEQUENCE</span>
-            </div>
+            <span key={i} className="mx-4">
+              KESHAV MAIYA /// FROM THE HILLS /// YES THE TEA PLACE /// DARJEELING BORN. PUNJAB MADE /// FAR FROM THE HILLS. CLOSE TO THE CODE /// STILL UP AT 2AM /// CS UNDERGRAD /// CREATIVE DEVELOPER /// PORTFOLIO 2026 /// KESHAV MAIYA ///
+            </span>
           ))}
         </div>
       </div>
@@ -122,16 +115,9 @@ export default function App() {
       <div className="fixed bottom-0 w-full border-t border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md py-1.5 overflow-hidden z-50">
         <div className="flex whitespace-nowrap animate-marquee font-mono text-[9px] md:text-[10px] text-[#F0F0F0]/60 tracking-[0.2em]">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="flex items-center">
-              <span className="mx-8">///</span>
-              <span>AVAILABLE FOR WORK</span>
-              <span className="mx-8">///</span>
-              <span>BASED IN THE MATRIX</span>
-              <span className="mx-8">///</span>
-              <span>SCROLL TO EXPLORE</span>
-              <span className="mx-8">///</span>
-              <span>SYSTEM.STATUS: ONLINE</span>
-            </div>
+            <span key={i} className="mx-4">
+              GIT PUSH AND PRAY /// WORKS ON MY MACHINE /// THE SCHEMA WAS NORMALISED. THE DEADLINE WAS NOT /// O(N²) BUT IT SHIPPED /// 200ms OR BUST /// UNDEFINED IS NOT A FUNCTION /// IT WAS A CORS ERROR. IT'S ALWAYS A CORS ERROR /// DOCKER SAID NO /// REDIS GOES BRRR /// THE QUERY WAS OPTIMISED. THE SLEEP WAS NOT /// LOCALHOST:8000 /// ONE MORE ENDPOINT /// JWT EXPIRED. SO DID MY PATIENCE /// MERGE CONFLICT IN PRODUCTION /// STACK OVERFLOW WAS DOWN. I FIGURED IT OUT ANYWAY /// PIP INSTALL AND HOPE /// 99 BUGS IN THE CODE. FIX ONE. 127 BUGS IN THE CODE /// GIT PUSH AND PRAY ///
+            </span>
           ))}
         </div>
       </div>
