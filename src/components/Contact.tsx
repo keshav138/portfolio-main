@@ -153,7 +153,7 @@ export default function Contact() {
       />
 
       {/* Center Content: Massive Email and Links */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full relative z-10 py-20 gap-8 md:gap-12">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full relative z-10 pt-12 pb-32 gap-6 md:gap-10">
         <a 
           href="mailto:keshavrajmaiya@gmail.com"
           className="group relative inline-block text-[clamp(1.2rem,4vw,6.5rem)] leading-none tracking-tight whitespace-nowrap lowercase transition-all duration-300"
@@ -162,7 +162,7 @@ export default function Contact() {
           <BubbleText text="keshavrajmaiya@gmail.com" />
         </a>
 
-        <div className="flex flex-row items-center justify-center gap-8 md:gap-16 w-full mt-4">
+        <div className="flex flex-row items-center justify-center gap-8 md:gap-24 w-full">
           <a 
             href="https://www.linkedin.com/in/keshavrajmaiya/"
             target="_blank"
@@ -183,6 +183,16 @@ export default function Contact() {
             <BubbleText text="@github" />
           </a>
         </div>
+
+        <a 
+          href="https://drive.google.com/file/d/1oosL-3ereylixqDmvxK13TYVHQnEC0Nn/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative inline-block text-[clamp(1.2rem,4vw,6.5rem)] leading-none tracking-tight whitespace-nowrap lowercase transition-all duration-300"
+          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+        >
+          <BubbleText text="@resume" />
+        </a>
       </div>
     </section>
   );
