@@ -2,14 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { F1Art, TaskMasterArt, SuperstoreArt, IPLArt } from './AsciiArt';
+import { ScaledAscii } from './ScaledAscii';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const GithubButton = ({ color, link }: { color: string, link: string }) => {
+const LinkButton = ({ color, link, label, isGithub = true }: { color: string, link: string, label: string, isGithub?: boolean }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <a
       href={link}
+      target="_blank"
+      rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="flex gap-2 items-center rounded-full font-extrabold px-5 py-3 text-sm transition-all duration-500 ease-[cubic-bezier(0.165,0.84,0.44,1)]"
@@ -22,10 +25,18 @@ const GithubButton = ({ color, link }: { color: string, link: string }) => {
         transform: isHovered ? 'translateY(-0.25rem)' : 'none'
       }}
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7.99992 1.33331C7.12444 1.33331 6.25753 1.50575 5.4487 1.84078C4.63986 2.17581 3.90493 2.66688 3.28587 3.28593C2.03563 4.53618 1.33325 6.23187 1.33325 7.99998C1.33325 10.9466 3.24659 13.4466 5.89325 14.3333C6.22659 14.3866 6.33325 14.18 6.33325 14C6.33325 13.8466 6.33325 13.4266 6.33325 12.8733C4.48659 13.2733 4.09325 11.98 4.09325 11.98C3.78659 11.2066 3.35325 11 3.35325 11C2.74659 10.5866 3.39992 10.6 3.39992 10.6C4.06659 10.6466 4.41992 11.2866 4.41992 11.2866C4.99992 12.3 5.97992 12 6.35992 11.84C6.41992 11.4066 6.59325 11.1133 6.77992 10.9466C5.29992 10.78 3.74659 10.2066 3.74659 7.66665C3.74659 6.92665 3.99992 6.33331 4.43325 5.85998C4.36659 5.69331 4.13325 4.99998 4.49992 4.09998C4.49992 4.09998 5.05992 3.91998 6.33325 4.77998C6.85992 4.63331 7.43325 4.55998 7.99992 4.55998C8.56659 4.55998 9.13992 4.63331 9.66659 4.77998C10.9399 3.91998 11.4999 4.09998 11.4999 4.09998C11.8666 4.99998 11.6333 5.69331 11.5666 5.85998C11.9999 6.33331 12.2533 6.92665 12.2533 7.66665C12.2533 10.2133 10.6933 10.7733 9.20659 10.94C9.44659 11.1466 9.66659 11.5533 9.66659 12.1733C9.66659 13.0666 9.66659 13.7866 9.66659 14C9.66659 14.18 9.77325 14.3933 10.1133 14.3333C12.7599 13.44 14.6666 10.9466 14.6666 7.99998C14.6666 7.1245 14.4941 6.25759 14.1591 5.44876C13.8241 4.63992 13.333 3.90499 12.714 3.28593C12.0949 2.66688 11.36 2.17581 10.5511 1.84078C9.7423 1.50575 8.8754 1.33331 7.99992 1.33331V1.33331Z" fill="currentColor"></path>
-      </svg>
-      <span>View on Github</span>
+      {isGithub ? (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.99992 1.33331C7.12444 1.33331 6.25753 1.50575 5.4487 1.84078C4.63986 2.17581 3.90493 2.66688 3.28587 3.28593C2.03563 4.53618 1.33325 6.23187 1.33325 7.99998C1.33325 10.9466 3.24659 13.4466 5.89325 14.3333C6.22659 14.3866 6.33325 14.18 6.33325 14C6.33325 13.8466 6.33325 13.4266 6.33325 12.8733C4.48659 13.2733 4.09325 11.98 4.09325 11.98C3.78659 11.2066 3.35325 11 3.35325 11C2.74659 10.5866 3.39992 10.6 3.39992 10.6C4.06659 10.6466 4.41992 11.2866 4.41992 11.2866C4.99992 12.3 5.97992 12 6.35992 11.84C6.41992 11.4066 6.59325 11.1133 6.77992 10.9466C5.29992 10.78 3.74659 10.2066 3.74659 7.66665C3.74659 6.92665 3.99992 6.33331 4.43325 5.85998C4.36659 5.69331 4.13325 4.99998 4.49992 4.09998C4.49992 4.09998 5.05992 3.91998 6.33325 4.77998C6.85992 4.63331 7.43325 4.55998 7.99992 4.55998C8.56659 4.55998 9.13992 4.63331 9.66659 4.77998C10.9399 3.91998 11.4999 4.09998 11.4999 4.09998C11.8666 4.99998 11.6333 5.69331 11.5666 5.85998C11.9999 6.33331 12.2533 6.92665 12.2533 7.66665C12.2533 10.2133 10.6933 10.7733 9.20659 10.94C9.44659 11.1466 9.66659 11.5533 9.66659 12.1733C9.66659 13.0666 9.66659 13.7866 9.66659 14C9.66659 14.18 9.77325 14.3933 10.1133 14.3333C12.7599 13.44 14.6666 10.9466 14.6666 7.99998C14.6666 7.1245 14.4941 6.25759 14.1591 5.44876C13.8241 4.63992 13.333 3.90499 12.714 3.28593C12.0949 2.66688 11.36 2.17581 10.5511 1.84078C9.7423 1.50575 8.8754 1.33331 7.99992 1.33331V1.33331Z" fill="currentColor"></path>
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      )}
+      <span>{label}</span>
     </a>
   );
 };
@@ -68,7 +79,10 @@ const PROJECTS = [
       'Containerised on Azure Cloud - <200ms response times'
     ],
     tech: ['Django', 'DRF', 'PostgreSQL', 'Redis', 'Docker', 'Azure', 'Nginx'],
-    link: '[ GitHub ↗ ]',
+    links: [
+      { label: 'View on GitHub', url: 'https://github.com/keshav138/taskmaster-main', isGithub: true },
+      { label: 'Live Demo', url: 'https://taskmaster-keshav.duckdns.org/', isGithub: false }
+    ],
   },
   {
     id: '02',
@@ -98,7 +112,9 @@ const PROJECTS = [
       'Interactive visualisations for race engineers'
     ],
     tech: ['Python', 'FastF1', 'Scikit-Learn', 'Pandas', 'Matplotlib'],
-    link: '[ GitHub ↗ ]',
+    links: [
+      { label: 'View on GitHub', url: 'https://github.com/keshav138/F1-Predictions-Visualizations', isGithub: true }
+    ],
   },
   {
     id: '03',
@@ -128,7 +144,9 @@ const PROJECTS = [
       'Automated data refresh pipelines via SQL'
     ],
     tech: ['PowerBI', 'DAX', 'SQL', 'Excel'],
-    link: '[ GitHub ↗ ]',
+    links: [
+      { label: 'Live Dashboard', url: 'https://app.powerbi.com/view?r=eyJrIjoiN2ZiNjI4ZmQtMGZmMy00YTk5LWEyOTItNGYxMWVlNmY0Zjg5IiwidCI6ImUxNGU3M2ViLTUyNTEtNDM4OC04ZDY3LThmOWYyZTJkNWE0NiIsImMiOjEwfQ%3D%3D', isGithub: false }
+    ],
   },
   {
     id: '04',
@@ -145,20 +163,22 @@ const PROJECTS = [
     subtitle: 'Cricket Match Analysis Platform',
     terminal: [
       'keshav@dev:~/ipl-dashboard $',
-      '> scrapy crawl matches',
-      '✓ BeautifulSoup initialized',
-      '✓ Historical data scraped',
-      '✓ Win probability calculated',
-      '✓ Tableau extract generated'
+      '> python extract_data.py',
+      '✓ espncricinfo data fetched',
+      '✓ Data cleaned and formatted',
+      '✓ Excel dashboard updated',
+      '✓ Visualizations rendered'
     ],
     bullets: [
-      'Ball-by-ball match analysis and visualizations',
-      'Player performance metrics and comparisons',
-      'Team win probability models',
-      'Web scraped historical data using BeautifulSoup'
+      'Extracted match data using python-espncricinfo',
+      'Data cleaning and transformation in Python',
+      'Interactive visualizations and dashboards built in Excel',
+      'Player performance metrics and team comparisons'
     ],
-    tech: ['Python', 'Tableau', 'BeautifulSoup', 'Pandas'],
-    link: '[ GitHub ↗ ]',
+    tech: ['Python', 'Excel', 'python-espncricinfo'],
+    links: [
+      { label: 'View on LinkedIn', url: 'https://www.linkedin.com/posts/keshavrajmaiya_exceldashboard-datavisualization-iplstats-activity-7316746220293537792-xCU6?utm_source=share&utm_medium=member_desktop&rcm=ACoAADhF6boBjyfwVjYrFIU22XiwkPaWXZisP8o', isGithub: false }
+    ],
   }
 ];
 
@@ -314,7 +334,7 @@ export default function Projects() {
       </div>
 
       {/* Navigation Pages */}
-      <div className="absolute bottom-12 right-12 flex gap-4 md:gap-6 z-50 items-center">
+      <div className="absolute bottom-4 right-4 md:bottom-12 md:right-12 flex gap-3 md:gap-6 z-50 items-center bg-[#050505]/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none px-4 py-2 md:p-0 rounded-full md:rounded-none">
         {[0, 1, 2, 3, 4].map((i) => {
           const isActive = activeIndex === i;
           const pageColor = i > 0 ? PROJECTS[i - 1].color : '#7B61FF';
@@ -363,10 +383,8 @@ export default function Projects() {
             </svg>
           </div>
 
-          <div ref={titleRef} className="relative z-10 flex flex-col items-center justify-center" style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}>
-            <pre className="relative z-10 font-mono text-[8px] sm:text-[10px] md:text-sm leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#C81D77] to-[#6710C2] text-center drop-shadow-[0_0_20px_rgba(200,29,119,0.4)]">
-              {PROJECTS_ASCII}
-            </pre>
+          <div ref={titleRef} className="relative z-10 flex flex-col items-center justify-center w-full max-w-[90vw] md:max-w-4xl mx-auto" style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}>
+            <ScaledAscii ascii={PROJECTS_ASCII} gradient="from-[#C81D77] to-[#6710C2]" dropShadow={true} fixedHeight={true} />
             
             {/* Cheeky Text Badges */}
             <div 
@@ -385,83 +403,57 @@ export default function Projects() {
         </div>
 
         {PROJECTS.map((project, index) => (
-          <div key={index} className="project-card relative w-screen h-full flex flex-col items-center justify-center px-8 md:px-24 pt-20">
+          <div key={index} className="project-card relative w-screen h-full flex flex-col items-center justify-center px-6 md:px-24 pt-16 md:pt-20 pb-20 md:pb-0 overflow-y-auto overflow-x-hidden">
             {/* Subtle boundary line (except for the last project) */}
             {index < PROJECTS.length - 1 && (
-              <div className="absolute right-0 top-[15%] bottom-[15%] w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none z-20" />
+              <div className="absolute right-0 top-[15%] bottom-[15%] w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none z-20 hidden md:block" />
             )}
-            <div className="w-full max-w-6xl mx-auto flex flex-col h-full justify-center">
+            <div className="w-full max-w-6xl mx-auto flex flex-col min-h-min my-auto justify-center">
               
               {/* TOP: Centered Title + Date */}
-              <div className="flex flex-col items-center relative mb-8 w-full" style={{ perspective: '1000px' }}>
-                <div className="relative animate-in flex items-center justify-center project-title-3d" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="flex flex-col items-center relative mb-6 md:mb-8 w-full" style={{ perspective: '1000px' }}>
+                <div className="relative animate-in flex flex-col items-center justify-center project-title-3d w-full max-w-[90vw] md:max-w-3xl mx-auto" style={{ transformStyle: 'preserve-3d' }}>
                   
                   {/* Date (Top Right, above topic) */}
                   <div className="absolute -top-6 right-0 md:-top-8 md:-right-4 font-mono text-[10px] md:text-sm text-[#AAA] tracking-widest" style={{ transform: 'translateZ(20px)' }}>
                     {project.date}
                   </div>
 
-                  <div className="flex items-center justify-center gap-3 md:gap-6" style={{ transformStyle: 'preserve-3d' }}>
-                    {/* ASCII Theme Dot */}
-                    <div style={{ transformStyle: 'preserve-3d' }}>
-                      <div className="hidden md:block">
-                        <pre className={`font-mono text-[8px] lg:text-[12px] leading-[1.1] font-bold bg-clip-text text-transparent bg-gradient-to-r ${project.gradient}`} style={{ filter: 'drop-shadow(0 0 15px rgba(255,255,255,0.15))' }}>
-                          {` \n \n \n \n██╗\n╚═╝`}
-                        </pre>
-                      </div>
-                      <div className="md:hidden text-center">
-                        <span className={`font-header text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${project.gradient}`} style={{ filter: 'drop-shadow(0 0 15px rgba(255,255,255,0.15))' }}>
-                          ■
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <div style={{ transformStyle: 'preserve-3d' }}>
-                      <div className="hidden md:block">
-                        <pre className={`font-mono text-[8px] lg:text-[12px] leading-[1.1] font-bold bg-clip-text text-transparent bg-gradient-to-r ${project.gradient}`} style={{ filter: 'drop-shadow(0 0 15px rgba(255,255,255,0.15))' }}>
-                          {project.asciiTitle}
-                        </pre>
-                      </div>
-                      <div className="md:hidden text-center">
-                        <h2 className={`font-header text-4xl font-bold tracking-widest uppercase bg-clip-text text-transparent bg-gradient-to-r ${project.gradient}`} style={{ filter: 'drop-shadow(0 0 15px rgba(255,255,255,0.15))' }}>
-                          {project.title}
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
+                  <ScaledAscii ascii={project.asciiTitle} gradient={project.gradient} dropShadow={true} fixedHeight={true} />
                 </div>
                 
                 {/* Subtitle */}
-                <div className="animate-in mt-6 font-mono text-sm md:text-lg text-[#E0E0E0] text-center">
+                <div className="animate-in mt-4 md:mt-6 font-mono text-xs md:text-lg text-[#E0E0E0] text-center">
                   {project.subtitle}
                 </div>
               </div>
 
               {/* MIDDLE: Tech Stack */}
-              <div className="animate-in flex flex-wrap justify-center gap-3 mb-12">
+              <div className="animate-in flex flex-row md:flex-wrap overflow-x-auto md:overflow-visible justify-start md:justify-center gap-2 md:gap-3 mb-8 md:mb-12 pb-2 md:pb-0 snap-x snap-mandatory hide-scrollbar w-full">
                 {project.tech.map((t, i) => (
-                  <span key={i} className="border border-[#333] px-4 py-1.5 font-mono text-xs md:text-sm text-[#AAA] bg-[#111]">
+                  <span key={i} className="shrink-0 snap-center border border-[#333] px-3 py-1 md:px-4 md:py-1.5 font-mono text-[10px] md:text-sm text-[#AAA] bg-[#111]">
                     {t}
                   </span>
                 ))}
               </div>
 
               {/* BOTTOM: Split Left (Desc) / Right (ASCII) */}
-              <div className="flex flex-col md:flex-row w-full justify-between items-center gap-12">
+              <div className="flex flex-col md:flex-row w-full justify-between items-center gap-8 md:gap-12">
                 
                 {/* Left: Description */}
                 <div className="w-full md:w-1/2 flex flex-col items-start text-left">
-                  <ul className="animate-in space-y-4 mb-8">
+                  <ul className="animate-in space-y-2 md:space-y-4 mb-6 md:mb-8">
                     {project.bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-start gap-3 font-mono text-xs md:text-base text-white">
+                      <li key={i} className="flex items-start gap-2 md:gap-3 font-mono text-[11px] md:text-base text-white">
                         <span className="text-[#7B61FF] mt-0.5">.</span>
                         {bullet}
                       </li>
                     ))}
                   </ul>
-                  <div className="animate-in">
-                    <GithubButton color={project.color} link={project.link} />
+                  <div className="animate-in flex flex-wrap gap-3 md:gap-4">
+                    {project.links.map((link, i) => (
+                      <LinkButton key={i} color={project.color} link={link.url} label={link.label} isGithub={link.isGithub} />
+                    ))}
                   </div>
                 </div>
 

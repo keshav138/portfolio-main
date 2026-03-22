@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScaledAscii } from './ScaledAscii';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -151,13 +152,8 @@ export default function CodingStats() {
 
         {/* Top: ASCII Art */}
         <div className="flex justify-center md:justify-start items-center md:w-1/2 relative z-10 pt-4 md:pt-0">
-          <div className="animate-in ascii-art relative flex flex-col items-center md:items-start">
-            <pre 
-              className="font-mono text-[6px] md:text-[10px] lg:text-[12px] xl:text-[14px] font-bold leading-tight drop-shadow-[0_0_15px_rgba(0,229,255,0.5)] bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(90deg, #00E5FF, #0077FF)' }}
-            >
-              {STATS_ASCII}
-            </pre>
+          <div className="animate-in ascii-art relative flex flex-col items-center md:items-start w-full">
+            <ScaledAscii ascii={STATS_ASCII} gradient="from-[#00E5FF] to-[#0077FF]" dropShadow={true} className="md:justify-start" fixedHeight={true} />
           </div>
         </div>
 
@@ -207,10 +203,8 @@ export default function CodingStats() {
 
         {/* Top: ASCII Score */}
         <div className="flex justify-center items-center md:w-1/2 relative z-10 pt-4 md:pt-0">
-          <div className="ascii-art relative flex flex-col items-center" style={{ transformStyle: 'preserve-3d' }}>
-            <pre className={`font-mono text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] leading-tight font-bold bg-clip-text text-transparent bg-gradient-to-br ${CODING_DATA[0].gradient} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]`}>
-              {CODING_DATA[0].asciiScore}
-            </pre>
+          <div className="ascii-art relative flex flex-col items-center w-full" style={{ transformStyle: 'preserve-3d' }}>
+            <ScaledAscii ascii={CODING_DATA[0].asciiScore} gradient={CODING_DATA[0].gradient} dropShadow={true} fixedHeight={true} />
             <div className={`mt-4 font-pixel text-2xl md:text-3xl lg:text-4xl bg-clip-text text-transparent bg-gradient-to-br ${CODING_DATA[0].gradient} animate-pulse`}>
               SOLVED
             </div>
@@ -271,10 +265,8 @@ export default function CodingStats() {
 
             {/* Top: ASCII Score */}
             <div className="flex justify-center items-center h-1/2 relative z-10 pt-4">
-              <div className="ascii-art relative flex flex-col items-center" style={{ transformStyle: 'preserve-3d' }}>
-                <pre className={`font-mono text-[8px] md:text-[10px] lg:text-[12px] xl:text-[14px] leading-tight font-bold bg-clip-text text-transparent bg-gradient-to-br ${stat.gradient} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]`}>
-                  {stat.asciiScore}
-                </pre>
+              <div className="ascii-art relative flex flex-col items-center w-full" style={{ transformStyle: 'preserve-3d' }}>
+                <ScaledAscii ascii={stat.asciiScore} gradient={stat.gradient} dropShadow={true} fixedHeight={true} />
                 <div className={`mt-4 font-pixel text-2xl md:text-3xl bg-clip-text text-transparent bg-gradient-to-br ${stat.gradient} animate-pulse`}>
                   SOLVED
                 </div>

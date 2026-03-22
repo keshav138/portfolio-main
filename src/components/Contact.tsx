@@ -1,18 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { Github, Linkedin, Twitter, Globe } from 'lucide-react';
-
-const SocialButton = ({ href, icon: Icon }: { href: string, icon: any }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group inline-block rounded-xl bg-white cursor-pointer"
-  >
-    <span className="block box-border border-2 border-white rounded-xl p-3 bg-[#0A0A0A] text-white -translate-y-1 transition-transform duration-100 ease-out group-hover:-translate-y-1.5 group-active:translate-y-0 flex items-center justify-center">
-      <Icon size={22} strokeWidth={0} fill="currentColor" />
-    </span>
-  </a>
-);
 
 const BubbleText = ({ text }: { text: string }) => {
   useEffect(() => {
@@ -166,8 +152,8 @@ export default function Contact() {
         className="absolute inset-0 w-full h-full pointer-events-none opacity-60"
       />
 
-      {/* Center Content: Massive Email */}
-      <div className="flex-1 flex items-center justify-center px-4 md:px-8 w-full relative z-10 py-20">
+      {/* Center Content: Massive Email and Links */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full relative z-10 py-20 gap-8 md:gap-12">
         <a 
           href="mailto:keshavrajmaiya@gmail.com"
           className="group relative inline-block text-[clamp(1.2rem,4vw,6.5rem)] leading-none tracking-tight whitespace-nowrap lowercase transition-all duration-300"
@@ -175,12 +161,28 @@ export default function Contact() {
         >
           <BubbleText text="keshavrajmaiya@gmail.com" />
         </a>
-      </div>
 
-      {/* Bottom Row */}
-      <div className="relative z-10 flex flex-col md:flex-row justify-end items-center gap-6 p-6 md:p-12">
-        <SocialButton href="#" icon={Linkedin} />
-        <SocialButton href="#" icon={Github} />
+        <div className="flex flex-row items-center justify-center gap-8 md:gap-16 w-full mt-4">
+          <a 
+            href="https://www.linkedin.com/in/keshavrajmaiya/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-block text-[clamp(1.2rem,4vw,6.5rem)] leading-none tracking-tight whitespace-nowrap lowercase transition-all duration-300"
+            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            <BubbleText text="@linkedin" />
+          </a>
+
+          <a 
+            href="https://github.com/keshav138"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-block text-[clamp(1.2rem,4vw,6.5rem)] leading-none tracking-tight whitespace-nowrap lowercase transition-all duration-300"
+            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            <BubbleText text="@github" />
+          </a>
+        </div>
       </div>
     </section>
   );

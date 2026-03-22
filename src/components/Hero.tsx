@@ -28,31 +28,66 @@ const ASCII_BUST = `
            ^~~~^~~~^
 `;
 
-const ASCII_PC = `
-  .-----------------.
- /-------------------\\\\
-| .-----------------. |
-| |                 | |
-| |      >_         | |
-| |                 | |
-| '-----------------' |
-|_____________________|
- \\\\___________________/
-   |___|       |___|
-`;
+const ASCII_PS2 = `
+      _=====_                               _=====_
+     / _____ \\                             / _____ \\
+   +.-'_____'-----------------------------.-'_____'.-+
+  /   |     |  '.        S O N Y        .'  |  _  |   \\
+ / ___| /|\\ |___ \\                     / ___| /_\\ |___ \\
+/ |      |      | ;  __           _   ; | _         _ | ;
+| | <---   ---> | | |__|         |_:> | ||_|       (_)| |
+| |___   |   ___| ;SELECT       START ; |___       ___| ;
+|\\    | \\|/ |    /  _     ___      _   \\    | (X) |    /|
+| \\   |_____|  .','" "', |___|  ,'" "', '.  |_____|  .' |
+|  '-.______.-' /       \\ANALOG/       \\  '-._____.-'   |
+|               |       |------|       |                |
+|              /\\       /      \\       /\\               |
+|             /  '.___.'        '.___.'  \\              |
+|            /                            \\             |
+ \\          /                              \\           /
+  \\________/                                \\_________/
+                    PS2 CONTROLLER
+`.replace(/\\/g, '\\\\');
 
-const ASCII_FLOPPY = `
- _________________
-| [] :::::::::: []|
-|    ::::::::::   |
-|  ..::::::::::.. |
-|-----------------|
-|   _        _    |
-|  | |      | |   |
-|  | |      | |   |
-|  |_|      |_|   |
-|_________________|
-`;
+const ASCII_GAMEBOY_NEW = `
+    __________________________
+   |OFFo oON                  |
+   | .----------------------. |
+   | |  .----------------.  | |
+   | |  |                |  | |
+   | |))|                |  | |
+   | |  |                |  | |
+   | |  |                |  | |
+   | |  |                |  | |
+   | |  |                |  | |
+   | |  |                |  | |
+   | |  '----------------'  | |
+   | |__GAME BOY____________/ |
+   |          ________        |
+   |    .    (Nintendo)       |
+   |  _| |_   """"""""   .-.  |
+   |-[_   _]-       .-. (   ) |
+   |   |_|         (   ) '-'  |
+   |    '           '-'   A   |
+   |                 B        |
+   |          ___   ___       |
+   |         (___) (___)  ,., |
+   |        select start ;:;: |
+   |                    ,;:;' /
+   |                   ,:;:'.'
+   '-----------------------'
+`.replace(/\\/g, '\\\\');
+
+const ASCII_AMIGA = `
+  .---------.
+  |.-------.|
+  ||>run#  ||
+  ||       ||
+  |"-------'|
+.-^---------^-.
+| ---~   AMiGA|
+"-------------'
+`.replace(/\\/g, '\\\\');
 
 const ASCII_CUBE = `
       +-------+
@@ -83,21 +118,6 @@ const ASCII_DIAMOND = `
   \\    /
    \\  /
     \\/
-`;
-
-const ASCII_EYE = `
-   ____
- /      \\
-|  (O)   |
- \\ ____ /
-`;
-
-const ASCII_SKULL = `
-  .----.
- /      \\
-| O    O |
-|   __   |
- \\_\\__/_/
 `;
 
 const ASCII_HEART = `
@@ -166,26 +186,19 @@ const ASCII_UMBRELLA = `
 `;
 
 const ELEMENTS = [
-  { art: ASCII_BUST, color: '#7B61FF', top: '2%', left: '2%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_PC, color: '#F0F0F0', bottom: '10%', right: '2%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_FLOPPY, color: '#7B61FF', top: '5%', right: '5%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_CUBE, color: '#F0F0F0', bottom: '15%', left: '5%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_CASSETTE, color: '#FF0055', top: '40%', left: '2%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_DIAMOND, color: '#F0F0F0', top: '45%', right: '3%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_EYE, color: '#7B61FF', top: '2%', left: '40%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_DIAMOND, color: '#FF0055', bottom: '10%', right: '40%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_SKULL, color: '#F0F0F0', top: '20%', left: '15%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_HEART, color: '#FF0055', top: '20%', right: '15%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_SWORD, color: '#7B61FF', bottom: '25%', left: '15%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_GHOST, color: '#F0F0F0', bottom: '25%', right: '15%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_ALIEN, color: '#FF0055', top: '5%', left: '25%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_GAMEBOY, color: '#7B61FF', top: '5%', right: '25%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_COFFEE, color: '#F0F0F0', bottom: '15%', left: '25%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_STAR, color: '#FF0055', bottom: '15%', right: '25%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_UMBRELLA, color: '#7B61FF', top: '60%', left: '5%', size: 'text-[8px] md:text-[10px]' },
-  { art: ASCII_EYE, color: '#F0F0F0', top: '60%', right: '5%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_SKULL, color: '#FF0055', bottom: '45%', right: '2%', size: 'text-[6px] md:text-[8px]' },
-  { art: ASCII_HEART, color: '#7B61FF', bottom: '45%', left: '2%', size: 'text-[6px] md:text-[8px]' },
+  { art: ASCII_AMIGA, color: '#F0F0F0', bottom: '12%', right: '8%', size: 'text-[8px] md:text-[10px]' },
+  { art: ASCII_PS2, color: '#7B61FF', top: '15%', right: '12%', size: 'text-[4px] md:text-[6px]' },
+  { art: ASCII_CUBE, color: '#F0F0F0', bottom: '25%', left: '10%', size: 'text-[8px] md:text-[10px]' },
+  { art: ASCII_CASSETTE, color: '#FF0055', top: '40%', left: '8%', size: 'text-[6px] md:text-[8px]' },
+  { art: ASCII_DIAMOND, color: '#F0F0F0', top: '55%', right: '10%', size: 'text-[8px] md:text-[10px]' },
+  { art: ASCII_GAMEBOY_NEW, color: '#F0F0F0', top: '10%', left: '18%', size: 'text-[4px] md:text-[6px]' },
+  { art: ASCII_HEART, color: '#FF0055', top: '30%', right: '22%', size: 'text-[8px] md:text-[10px]' },
+  { art: ASCII_SWORD, color: '#7B61FF', bottom: '35%', left: '22%', size: 'text-[6px] md:text-[8px]' },
+  { art: ASCII_GHOST, color: '#F0F0F0', bottom: '40%', right: '18%', size: 'text-[8px] md:text-[10px]' },
+  { art: ASCII_ALIEN, color: '#FF0055', top: '18%', left: '32%', size: 'text-[6px] md:text-[8px]' },
+  { art: ASCII_COFFEE, color: '#F0F0F0', bottom: '18%', left: '30%', size: 'text-[8px] md:text-[10px]' },
+  { art: ASCII_STAR, color: '#FF0055', bottom: '22%', right: '32%', size: 'text-[6px] md:text-[8px]' },
+  { art: ASCII_UMBRELLA, color: '#7B61FF', top: '70%', left: '15%', size: 'text-[8px] md:text-[10px]' },
 ];
 
 const ROLES = [

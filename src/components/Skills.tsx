@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScaledAscii } from './ScaledAscii';
 import { Code2, Globe, Database, BrainCircuit, HardDrive, Server, Wrench } from 'lucide-react';
 import { SiPython, SiCplusplus, SiDjango, SiPandas, SiNumpy, SiScikitlearn, SiPostgresql, SiMysql, SiRedis, SiDocker, SiNginx, SiGit, SiPostman, SiGooglecolab } from 'react-icons/si';
 import { FaJava, FaBrain, FaChartLine, FaProjectDiagram, FaDatabase, FaCar, FaCloud, FaCode, FaChartPie, FaFileExcel, FaAws } from 'react-icons/fa';
@@ -99,9 +100,7 @@ export default function Skills() {
 
           {/* Center ASCII Heading */}
           <div className="flex flex-col items-center w-full lg:w-1/2 shrink-0">
-            <pre className="font-mono text-[10px] sm:text-xs md:text-sm lg:text-base leading-[1.1] text-transparent bg-clip-text bg-gradient-to-r from-[#7B61FF] to-[#00E5FF] font-bold text-center">
-              {ASCII_SKILLS}
-            </pre>
+            <ScaledAscii ascii={ASCII_SKILLS} gradient="from-[#7B61FF] to-[#00E5FF]" fixedHeight={true} />
           </div>
 
           {/* Right Filler */}
@@ -114,11 +113,11 @@ export default function Skills() {
         </div>
 
         {/* Bento Grid */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="w-full flex flex-row md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 md:overflow-visible hide-scrollbar">
           {SKILL_MODULES.map((module) => (
             <div
               key={module.id}
-              className={`group relative flex flex-col bg-[#050505] border transition-all duration-300 hover:-translate-y-1 ${module.span} ${
+              className={`shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative flex flex-col bg-[#050505] border transition-all duration-300 hover:-translate-y-1 ${module.span} ${
                 module.primary 
                   ? 'border-[#7B61FF]/40 hover:border-[#7B61FF]/80 hover:shadow-[0_0_30px_rgba(123,97,255,0.15)]' 
                   : 'border-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)]'

@@ -10,37 +10,41 @@ const CERTIFICATIONS = [
     id: 'cert-1',
     title: 'Cloud Computing',
     issuer: 'NPTEL',
-    date: 'Jan 2024',
+    date: 'May 2025',
     icon: Cloud,
     color: '#00E5FF',
-    gradient: 'from-[#00E5FF] to-[#0077FF]'
+    gradient: 'from-[#00E5FF] to-[#0077FF]',
+    link: 'https://drive.google.com/file/d/1dpbHlqOEyVzzeANbBqUATZArwHiLYf2L/view'
   },
   {
     id: 'cert-2',
-    title: 'Full Stack',
+    title: 'Java Programming',
     issuer: 'iamneo',
-    date: 'Nov 2023',
+    date: 'Apr 2025',
     icon: Code,
     color: '#7B61FF',
-    gradient: 'from-[#7B61FF] to-[#FF00FF]'
+    gradient: 'from-[#7B61FF] to-[#FF00FF]',
+    link: 'https://drive.google.com/file/d/1ENr6RRCsQzXK1aEb6-iHwig1tEBHOT-w/view'
   },
   {
     id: 'cert-3',
-    title: 'Backend',
+    title: 'OOPs',
     issuer: 'iamneo',
-    date: 'Oct 2023',
+    date: 'Dec 2024',
     icon: Server,
     color: '#FF0055',
-    gradient: 'from-[#FF0055] to-[#FFAA00]'
+    gradient: 'from-[#FF0055] to-[#FFAA00]',
+    link: 'https://drive.google.com/file/d/1ECTImpmwJnF3RgAtOzJrotJyzhLANq7V/view'
   },
   {
     id: 'cert-4',
-    title: 'Data Analytics',
+    title: 'Google Networking',
     issuer: 'Google',
-    date: 'Aug 2023',
+    date: 'Sep 2024',
     icon: Database,
     color: '#00FF88',
-    gradient: 'from-[#00FF88] to-[#00A8FF]'
+    gradient: 'from-[#00FF88] to-[#00A8FF]',
+    link: 'https://drive.google.com/file/d/1aJZl9FxknZ8YfoAyQJkzHsVCxoU0bNxT/view'
   }
 ];
 
@@ -49,19 +53,21 @@ const TRAINING = [
     id: 'train-1',
     title: 'Advanced SQL',
     issuer: 'CodeQuery',
-    date: 'Jul 2023',
+    date: 'Jun 2025',
     icon: Database,
     color: '#FFAA00',
-    gradient: 'from-[#FFAA00] to-[#FF0055]'
+    gradient: 'from-[#FFAA00] to-[#FF0055]',
+    link: 'https://drive.google.com/file/d/1xyvqdVi23wJevrjMDGTGeXEj-p_lOffx/view'
   },
   {
     id: 'train-2',
-    title: 'Python DSA',
+    title: 'Data Structures',
     issuer: 'NeoColab',
-    date: 'Jun 2023',
+    date: 'Jan 2025',
     icon: Terminal,
     color: '#00E5FF',
-    gradient: 'from-[#00E5FF] to-[#7B61FF]'
+    gradient: 'from-[#00E5FF] to-[#7B61FF]',
+    link: 'https://drive.google.com/file/d/1qW0tMne5GEvWA4HjbwlmZV1O8uk5yL-I/view'
   }
 ];
 
@@ -99,13 +105,16 @@ export default function Certs() {
             <div className="flex-grow h-[1px] bg-[#222]"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 md:overflow-visible hide-scrollbar">
             {CERTIFICATIONS.map((cert, index) => {
               const Icon = cert.icon;
               return (
-                <div 
+                <a 
                   key={cert.id}
-                  className="group relative p-8 bg-[#050505] border border-[#333] hover:border-[#555] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[280px]"
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative p-8 bg-[#050505] border border-[#333] hover:border-[#555] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[280px] block"
                 >
                   {/* Top Glow Line (Default Visible) */}
                   <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r ${cert.gradient} opacity-100`} />
@@ -134,7 +143,7 @@ export default function Certs() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
@@ -148,13 +157,16 @@ export default function Certs() {
             <div className="flex-grow h-[1px] bg-[#222]"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-row md:grid md:grid-cols-2 gap-6 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 md:overflow-visible hide-scrollbar">
             {TRAINING.map((train, index) => {
               const Icon = train.icon;
               return (
-                <div 
+                <a 
                   key={train.id}
-                  className="group relative p-8 bg-[#050505] border border-[#333] hover:border-[#555] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px]"
+                  href={train.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative p-8 bg-[#050505] border border-[#333] hover:border-[#555] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px] block"
                 >
                   {/* Top Glow Line (Default Visible) */}
                   <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r ${train.gradient} opacity-100`} />
@@ -183,7 +195,7 @@ export default function Certs() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>

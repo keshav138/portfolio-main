@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScaledAscii } from './ScaledAscii';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,12 +22,12 @@ const EDUCATION_DATA = [
     shortLabel: 'CGPA',
     gradient: 'from-[#00E5FF] to-[#0077FF]',
     color: '#00E5FF',
-    asciiScore: ` █████╗      ███████╗ ███████╗
-██╔══██╗     ██╔════╝ ██╔════╝
-╚█████╔╝ ██╗ ███████╗ ███████╗
-██╔══██╗ ╚═╝ ╚════██║ ╚════██║
-╚█████╔╝ ██╗ ███████║ ███████║
- ╚════╝  ╚═╝ ╚══════╝ ╚══════╝`
+    asciiScore: ` █████╗        ███████╗███████╗
+██╔══██╗       ██╔════╝██╔════╝
+╚█████╔╝       ███████╗███████╗
+██╔══██╗   ██╗ ╚════██║╚════██║
+╚█████╔╝   ╚═╝ ███████║███████║
+ ╚════╝        ╚══════╝╚══════╝`
   },
   {
     id: '02',
@@ -123,28 +124,23 @@ export default function Education() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[#0A0A0A] border-y border-[#222] my-24 flex flex-col md:flex-row min-h-[350px] overflow-hidden">
+    <section ref={containerRef} className="relative w-full bg-[#0A0A0A] border-y border-[#222] my-12 md:my-24 flex flex-row overflow-x-auto snap-x snap-mandatory md:overflow-hidden min-h-[400px] md:min-h-[550px] hide-scrollbar">
       {/* Title Strip */}
       <div 
         ref={el => colsRef.current[0] = el}
-        className="w-full md:w-1/4 p-6 lg:p-8 border-b md:border-b-0 md:border-r border-[#222] flex flex-col justify-between relative group bg-[#050505] min-h-[250px] md:min-h-[350px]"
+        className="shrink-0 w-[85vw] sm:w-[45vw] md:w-1/4 snap-center p-6 lg:p-8 border-r border-[#222] flex flex-col justify-between relative group bg-[#050505] min-h-[400px] md:min-h-[550px]"
       >
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         
         {/* Top: ASCII Art */}
-        <div className="flex justify-center items-center h-1/2 relative z-10 pt-4">
-          <div className="animate-in ascii-art relative flex flex-col items-center">
-            <pre 
-              className="font-mono text-[8px] md:text-[10px] lg:text-[12px] font-bold leading-tight drop-shadow-[0_0_15px_rgba(193,30,56,0.5)] bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(90deg, #C11E38, #8A2387)' }}
-            >
-              {EDU_ASCII}
-            </pre>
+        <div className="flex justify-center items-center flex-1 relative z-10 pt-4">
+          <div className="animate-in ascii-art relative flex flex-col items-center w-full">
+            <ScaledAscii ascii={EDU_ASCII} gradient="from-[#C11E38] to-[#8A2387]" dropShadow={true} fixedHeight={true} />
           </div>
         </div>
 
         {/* Bottom: Details */}
-        <div className="flex flex-col justify-end pb-4 relative z-10 mt-8 md:mt-0 h-1/2">
+        <div className="flex flex-col justify-end pb-0 relative z-10 mt-8 md:mt-0">
           <div className="animate-in font-mono text-[9px] lg:text-[10px] text-[#555] tracking-widest uppercase mb-3">
             // LOG_07
           </div>
@@ -159,7 +155,7 @@ export default function Education() {
         <div 
           key={edu.id}
           ref={el => colsRef.current[index + 1] = el}
-          className="w-full md:w-1/4 p-6 lg:p-8 border-b md:border-b-0 md:border-r last:border-r-0 border-[#222] flex flex-col justify-between relative group hover:bg-[#111] transition-colors duration-500 min-h-[250px] md:min-h-[350px] overflow-hidden"
+          className="shrink-0 w-[85vw] sm:w-[45vw] md:w-1/4 snap-center p-6 lg:p-8 border-r last:border-r-0 border-[#222] flex flex-col justify-between relative group hover:bg-[#111] transition-colors duration-500 min-h-[400px] md:min-h-[550px] overflow-hidden"
         >
           {/* Background Watermark Number */}
           <div className="absolute -right-4 -bottom-4 text-[100px] lg:text-[150px] font-header font-bold text-[#1a1a1a] select-none z-0 transition-transform duration-700 group-hover:scale-110 pointer-events-none">
@@ -167,19 +163,17 @@ export default function Education() {
           </div>
 
           {/* Top: ASCII Score */}
-          <div className="flex justify-center items-center h-1/2 relative z-10 pt-4">
-            <div className="ascii-art relative" style={{ transformStyle: 'preserve-3d' }}>
-              <pre className={`font-mono text-[6px] lg:text-[8px] xl:text-[10px] leading-tight font-bold bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]`}>
-                {edu.asciiScore}
-              </pre>
-              <div className={`absolute -bottom-4 -right-4 font-pixel text-xl bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient} animate-pulse`}>
+          <div className="flex justify-center items-center flex-1 relative z-10 pt-4">
+            <div className="ascii-art relative w-full" style={{ transformStyle: 'preserve-3d' }}>
+              <ScaledAscii ascii={edu.asciiScore} gradient={edu.gradient} dropShadow={true} fixedHeight={true} />
+              <div className={`absolute -bottom-6 right-0 font-pixel text-xl bg-clip-text text-transparent bg-gradient-to-br ${edu.gradient} animate-pulse`}>
                 {edu.shortLabel}
               </div>
             </div>
           </div>
 
           {/* Bottom: Details */}
-          <div className="flex flex-col justify-end pb-4 relative z-10 mt-8 md:mt-0 h-1/2">
+          <div className="flex flex-col justify-end pb-0 relative z-10 mt-8 md:mt-0">
             <div className="animate-in flex flex-wrap gap-2 mb-4">
               <span className="font-mono text-[9px] lg:text-[10px] text-[#888] tracking-widest uppercase border border-[#333] px-2 py-1 rounded-full bg-[#0A0A0A]">
                 {edu.timeline}
