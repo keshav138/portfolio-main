@@ -15,7 +15,7 @@ const LinkButton = ({ color, link, label, isGithub = true }: { color: string, li
       rel="noopener noreferrer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="flex gap-2 items-center rounded-full font-extrabold px-5 py-3 text-sm transition-all duration-500 ease-[cubic-bezier(0.165,0.84,0.44,1)]"
+      className="flex gap-1.5 md:gap-2 items-center rounded-full font-extrabold px-3.5 py-2 md:px-5 md:py-3 text-[10px] md:text-sm transition-all duration-500 ease-[cubic-bezier(0.165,0.84,0.44,1)]"
       style={{
         backgroundColor: isHovered ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.4)',
         color: isHovered ? color : '#fff',
@@ -271,22 +271,26 @@ export default function Projects() {
       });
     }
 
-    const titleAnim3D = gsap.to('.project-title-3d', {
-      y: -15,
-      rotationX: 10,
-      rotationY: -10,
-      z: 50,
-      duration: 4,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      stagger: 0.2
-    });
+    const titleTargets = document.querySelectorAll('.project-title-3d');
+    let titleAnim3D: gsap.core.Tween | null = null;
+    if (titleTargets.length > 0) {
+      titleAnim3D = gsap.to(titleTargets, {
+        y: -15,
+        rotationX: 10,
+        rotationY: -10,
+        z: 50,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.2
+      });
+    }
 
     return () => {
       tl.kill();
       if (titleAnim) titleAnim.kill();
-      titleAnim3D.kill();
+      if (titleAnim3D) titleAnim3D.kill();
     };
   }, []);
 

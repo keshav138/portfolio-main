@@ -1,14 +1,10 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'motion/react';
 import { ScaledAscii } from './ScaledAscii';
 import { Code2, Globe, Database, BrainCircuit, HardDrive, Server, Wrench } from 'lucide-react';
 import { SiPython, SiCplusplus, SiDjango, SiPandas, SiNumpy, SiScikitlearn, SiPostgresql, SiMysql, SiRedis, SiDocker, SiNginx, SiGit, SiPostman, SiGooglecolab } from 'react-icons/si';
 import { FaJava, FaBrain, FaChartLine, FaProjectDiagram, FaDatabase, FaCar, FaCloud, FaCode, FaChartPie, FaFileExcel, FaAws } from 'react-icons/fa';
 import { TbSql } from 'react-icons/tb';
 import { BsBarChartFill } from 'react-icons/bs';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const SKILL_MODULES = [
   { id: '01', title: 'LANGUAGES', span: 'col-span-1 md:col-span-2 lg:col-span-2', innerGrid: 'grid-cols-2', icon: Code2, items: [
@@ -79,17 +75,21 @@ const ASCII_SIDE_RIGHT = `██████████████████
 
 export default function Skills() {
   return (
-    <section className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center justify-center px-4 py-24 md:px-8 overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center justify-center px-4 py-32 md:px-8 overflow-visible">
       
-      {/* Background Grid Lines */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10 z-0"
-           style={{ backgroundImage: 'linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+      {/* Background Grid Lines - Layer Promoted */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10 z-0 will-change-transform"
+           style={{ 
+             backgroundImage: 'linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px)', 
+             backgroundSize: '40px 40px',
+             transform: 'translateZ(0)' 
+           }}>
       </div>
 
       <div className="w-full max-w-7xl z-10 flex flex-col items-center">
         
         {/* Heading Area with Creative Filler */}
-        <div className="w-full flex justify-center lg:justify-between items-center mb-16 md:mb-24 overflow-hidden">
+        <div className="w-full flex justify-center lg:justify-between items-center mb-16 md:mb-24 relative z-20">
           
           {/* Left Filler */}
           <div className="hidden lg:flex flex-col items-start w-1/4 opacity-40">
@@ -98,10 +98,45 @@ export default function Skills() {
             </pre>
           </div>
 
-          {/* Center ASCII Heading */}
-          <div className="flex flex-col items-center w-full lg:w-1/2 shrink-0">
+          {/* Center ASCII Heading with 3D Motion */}
+          <motion.div 
+            className="flex flex-col items-center w-full lg:w-1/2 shrink-0 relative"
+            animate={{ 
+              y: [0, -10, 0],
+              rotateX: [0, 5, 0],
+              rotateY: [0, -5, 0],
+              z: [0, 20, 0]
+            }}
+            transition={{ 
+              duration: 5, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            style={{ perspective: "1000px" }}
+          >
+            {/* Teacher-style Asterisks (Three in a row) */}
+            <div className="absolute -top-10 right-4 md:right-12 flex gap-2 text-yellow-400 font-bold text-3xl md:text-4xl pointer-events-none select-none drop-shadow-[0_0_12px_rgba(234,179,8,0.8)]">
+              {[...Array(3)].map((_, i) => (
+                <motion.span
+                  key={i}
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    opacity: [0.6, 1, 0.6]
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: i * 0.3
+                  }}
+                >
+                  *
+                </motion.span>
+              ))}
+            </div>
+
             <ScaledAscii ascii={ASCII_SKILLS} gradient="from-[#7B61FF] to-[#00E5FF]" fixedHeight={true} />
-          </div>
+          </motion.div>
 
           {/* Right Filler */}
           <div className="hidden lg:flex flex-col items-end w-1/4 opacity-40">
@@ -113,11 +148,11 @@ export default function Skills() {
         </div>
 
         {/* Bento Grid */}
-        <div className="w-full flex flex-row md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 md:overflow-visible hide-scrollbar">
+        <div className="w-full flex flex-row md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 md:overflow-visible hide-scrollbar relative z-30">
           {SKILL_MODULES.map((module) => (
             <div
               key={module.id}
-              className={`shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative flex flex-col bg-[#050505] border transition-all duration-300 hover:-translate-y-1 ${module.span} ${
+              className={`shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative flex flex-col bg-[#050505] border transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 will-change-transform cursor-pointer ${module.span} ${
                 module.primary 
                   ? 'border-[#7B61FF]/40 hover:border-[#7B61FF]/80 hover:shadow-[0_0_30px_rgba(123,97,255,0.15)]' 
                   : 'border-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)]'
@@ -160,7 +195,7 @@ export default function Skills() {
                   {module.items.map((item, idx) => (
                     <div 
                       key={idx}
-                      className={`group/skill relative overflow-hidden flex items-center justify-start px-4 py-3 md:px-5 md:py-4 font-mono font-medium text-base md:text-lg border transition-all duration-300 ${item.itemSpan || ''} ${
+                      className={`group/skill relative overflow-hidden flex items-center justify-start px-4 py-3 md:px-5 md:py-4 font-mono font-medium text-base md:text-lg border transition-[transform,border-color,background-color,color,box-shadow] duration-300 cursor-pointer ${item.itemSpan || ''} ${
                         module.primary
                           ? 'border-[#7B61FF]/20 text-white bg-[#7B61FF]/5 hover:border-[#7B61FF]/60 hover:bg-[#7B61FF]/15 hover:shadow-[0_0_20px_rgba(123,97,255,0.15)]'
                           : 'border-white/5 text-zinc-300 bg-white/[0.02] hover:border-white/20 hover:text-white hover:bg-white/[0.08]'
@@ -171,7 +206,7 @@ export default function Skills() {
                         const Icon = item.icon as any;
                         return (
                           <Icon 
-                            className="absolute -right-4 -bottom-4 text-7xl md:text-8xl opacity-[0.07] transition-all duration-500 group-hover/skill:scale-110 group-hover/skill:-translate-y-1 group-hover/skill:-translate-x-1 group-hover/skill:opacity-20"
+                            className="absolute -right-4 -bottom-4 text-7xl md:text-8xl opacity-[0.07] transition-[transform,opacity] duration-500 group-hover/skill:scale-110 group-hover/skill:-translate-y-1 group-hover/skill:-translate-x-1 group-hover/skill:opacity-20"
                             style={{ color: item.color }}
                           />
                         );

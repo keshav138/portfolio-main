@@ -93,21 +93,23 @@ export default function Education() {
       
       const elements = col.querySelectorAll('.animate-in');
       
-      gsap.fromTo(elements, 
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          delay: (index * 0.15) + 0.3, // Start after column starts sliding
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: col,
-            start: 'top 85%',
+      if (elements.length > 0) {
+        gsap.fromTo(elements, 
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            delay: (index * 0.15) + 0.3, // Start after column starts sliding
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: col,
+              start: 'top 85%',
+            }
           }
-        }
-      );
+        );
+      }
       
       const asciiArt = col.querySelector('.ascii-art');
       if (asciiArt) {

@@ -178,11 +178,11 @@ function EasterEggLiner({ texts, color }: { texts: string[], color: string }) {
       
       {/* Floating Surprise Text */}
       <div 
-        className={`fixed bottom-10 left-1/2 -translate-x-1/2 max-w-md w-full p-4 border bg-[#0a0a0a]/95 backdrop-blur-md transition-all duration-700 z-[100] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95 pointer-events-none'}`}
+        className={`fixed bottom-10 left-1/2 -translate-x-1/2 max-w-[90vw] md:max-w-md w-full p-3 md:p-4 border bg-[#0a0a0a]/95 backdrop-blur-md transition-all duration-700 z-[100] ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95 pointer-events-none'}`}
         style={{ borderColor: color, color: '#fff', boxShadow: `0 0 20px ${color}20` }}
       >
-        <div className="font-mono text-[10px] mb-2 uppercase tracking-widest" style={{ color }}>&gt; Decrypted_Log_Fragment</div>
-        <div className="font-mono text-sm leading-relaxed italic">
+        <div className="font-mono text-[8px] md:text-[10px] mb-1.5 md:mb-2 uppercase tracking-widest" style={{ color }}>&gt; Decrypted_Log_Fragment</div>
+        <div className="font-mono text-xs md:text-sm leading-relaxed italic">
           "{currentText}"
         </div>
       </div>
