@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { F1Art, TaskMasterArt, SuperstoreArt, IPLArt } from './AsciiArt';
@@ -6,7 +6,7 @@ import { ScaledAscii } from './ScaledAscii';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LinkButton = ({ color, link, label, isGithub = true }: { color: string, link: string, label: string, isGithub?: boolean }) => {
+const LinkButton = ({ color, link, label, isGithub = true }: { color: string, link: string, label: string, isGithub?: boolean, key?: React.Key }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <a
@@ -90,12 +90,12 @@ const PROJECTS = [
     title: 'F1 ANALYTICS',
     gradient: 'from-[#FF2060] to-[#FFAA00]',
     color: '#FF6010',
-    asciiTitle: `███████╗██╗    █████╗ ███╗   ██╗ █████╗ ██╗     ██╗   ██╗████████╗██╗ ██████╗ ███████╗
-██╔════╝███╗  ██╔══██╗████╗  ██║██╔══██╗██║     ╚██╗ ██╔╝╚══██╔══╝██║██╔════╝ ██╔════╝
-█████╗  ╚██║  ███████║██╔██╗ ██║███████║██║      ╚████╔╝    ██║   ██║██║      ███████╗
-██╔══╝   ██║  ██╔══██║██║╚██╗██║██╔══██║██║       ╚██╔╝     ██║   ██║██║      ╚════██║
-██║      ██║  ██║  ██║██║ ╚████║██║  ██║███████╗   ██║      ██║   ██║╚██████╗ ███████║
-╚═╝      ╚═╝  ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝   ╚═╝      ╚═╝   ╚═╝ ╚═════╝ ╚══════╝`,
+    asciiTitle: `███████╗██╗    █████╗ ███╗   ██╗ █████╗ ██╗  ██╗   ██╗████████╗██╗ ██████╗ ███████╗
+██╔════╝███╗  ██╔══██╗████╗  ██║██╔══██╗██║  ╚██╗ ██╔╝╚══██╔══╝██║██╔════╝ ██╔════╝
+█████╗  ╚██║  ███████║██╔██╗ ██║███████║██║   ╚████╔╝    ██║   ██║██║      ███████╗
+██╔══╝   ██║  ██╔══██║██║╚██╗██║██╔══██║██║    ╚██╔╝     ██║   ██║██║      ╚════██║
+██║      ██║  ██║  ██║██║ ╚████║██║  ██║███████╗██║      ██║   ██║╚██████╗ ███████║
+╚═╝      ╚═╝  ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝      ╚═╝   ╚═╝ ╚═════╝ ╚══════╝`,
     subtitle: 'Telemetry & Race Strategy Predictor',
     terminal: [
       'keshav@dev:~/f1-analytics $',
@@ -384,20 +384,22 @@ export default function Projects() {
           </div>
 
           <div ref={titleRef} className="relative z-10 flex flex-col items-center justify-center w-full max-w-[90vw] md:max-w-4xl mx-auto" style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}>
-            <ScaledAscii ascii={PROJECTS_ASCII} gradient="from-[#C81D77] to-[#6710C2]" dropShadow={true} fixedHeight={true} />
-            
-            {/* Cheeky Text Badges */}
-            <div 
-              className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 font-pixel text-2xl md:text-4xl bg-clip-text text-transparent bg-gradient-to-br from-[#00E5FF] to-[#7B61FF] animate-pulse" 
-              style={{ transform: 'translateZ(30px)' }}
-            >
-              BUGS
-            </div>
-            <div 
-              className="absolute -top-4 -left-4 md:-top-8 md:-left-8 font-pixel text-2xl md:text-4xl bg-clip-text text-transparent bg-gradient-to-br from-[#FF0055] to-[#FFAA00] animate-pulse" 
-              style={{ transform: 'translateZ(30px)', animationDelay: '0.5s' }}
-            >
-              COFFEE
+            <div className="relative w-fit mx-auto">
+              <ScaledAscii ascii={PROJECTS_ASCII} gradient="from-[#C81D77] to-[#6710C2]" dropShadow={true} fixedHeight={true} />
+              
+              {/* Cheeky Text Badges */}
+              <div 
+                className="absolute -bottom-2 -right-4 md:-bottom-4 md:-right-8 font-pixel text-xl md:text-3xl bg-clip-text text-transparent bg-gradient-to-br from-[#00E5FF] to-[#7B61FF] animate-pulse" 
+                style={{ transform: 'translateZ(30px)' }}
+              >
+                BUGS
+              </div>
+              <div 
+                className="absolute -top-2 -left-4 md:-top-4 md:-left-8 font-pixel text-xl md:text-3xl bg-clip-text text-transparent bg-gradient-to-br from-[#FF0055] to-[#FFAA00] animate-pulse" 
+                style={{ transform: 'translateZ(30px)', animationDelay: '0.5s' }}
+              >
+                COFFEE
+              </div>
             </div>
           </div>
         </div>

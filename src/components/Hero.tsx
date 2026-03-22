@@ -213,7 +213,27 @@ export default function Hero() {
   const ringsRef = useRef<(SVGGElement | null)[]>([]);
   const nameRef = useRef<HTMLDivElement | null>(null);
   const stripRef = useRef<HTMLDivElement | null>(null);
+  const [showMotionButton, setShowMotionButton] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    // Check if permission is needed for iOS
+    if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+      setShowMotionButton(true);
+    }
+  }, []);
+
+  const requestMotionPermission = async () => {
+    try {
+      const response = await (DeviceOrientationEvent as any).requestPermission();
+      if (response === 'granted') {
+        setShowMotionButton(false);
+        // The event listener is already added in the main useEffect
+      }
+    } catch (error) {
+      console.error('Motion permission error:', error);
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -244,13 +264,8 @@ export default function Hero() {
       animateFloat(head, i, i * 0.15);
     });
 
-    // 3D Mouse Parallax for Strip and Name
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      const x = (clientX / innerWidth - 0.5) * 2; // -1 to 1
-      const y = (clientY / innerHeight - 0.5) * 2; // -1 to 1
-
+    // 3D Parallax for Strip and Name (Mouse for Desktop, Gyro for Mobile)
+    const updateParallax = (x: number, y: number) => {
       if (stripRef.current) {
         gsap.to(stripRef.current, {
           x: x * -30,
@@ -274,7 +289,29 @@ export default function Hero() {
       }
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const x = (clientX / innerWidth - 0.5) * 2; // -1 to 1
+      const y = (clientY / innerHeight - 0.5) * 2; // -1 to 1
+      updateParallax(x, y);
+    };
+
+    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+      if (e.beta === null || e.gamma === null) return;
+      
+      // beta: -180 to 180 (front/back tilt)
+      // gamma: -90 to 90 (left/right tilt)
+      // We want to normalize these to -1 to 1 range for our parallax
+      // Typical comfortable tilt is around 30 degrees
+      const x = Math.max(-1, Math.min(1, e.gamma / 30));
+      const y = Math.max(-1, Math.min(1, (e.beta - 45) / 30)); // Assuming 45 deg is "neutral" holding position
+      
+      updateParallax(x, y);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('deviceorientation', handleDeviceOrientation);
 
     // Rotating rings
     ringsRef.current.forEach((ring, i) => {
@@ -288,7 +325,10 @@ export default function Hero() {
       });
     });
 
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('deviceorientation', handleDeviceOrientation);
+    };
   }, []);
 
   const handleBreak = (e: React.MouseEvent<HTMLPreElement>, originalArt: string, i: number) => {
@@ -420,7 +460,15 @@ export default function Hero() {
           MAIYA
         </h1>
         
-        {/* Changing Role Tag */}
+        {/* iOS Motion Permission Button */}
+        {showMotionButton && (
+          <button 
+            onClick={requestMotionPermission}
+            className="mt-8 px-4 py-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-mono text-[10px] tracking-widest uppercase hover:bg-white/10 transition-colors pointer-events-auto"
+          >
+            Enable Motion Parallax
+          </button>
+        )}
       </div>
 
       {/* Changing Role Tag - Anchored to bottom */}

@@ -1,5 +1,5 @@
 {
   "name": "Keshav Raj Maiya - Portfolio",
   "description": "Single page scrollable portfolio for a Backend + ML/AI Engineer. Dark terminal aesthetic, ASCII-heavy, visuals-first.",
-  "requestFramePermissions": []
+  "requestFramePermissions": ["accelerometer", "gyroscope"]
 }
