@@ -211,11 +211,12 @@ export default function Projects() {
         trigger: containerRef.current,
         pin: true,
         scrub: 1,
+        start: "top top",
         onUpdate: (self) => {
           const index = Math.round(self.progress * (sections.length - 1));
           setActiveIndex(index);
         },
-        end: () => "+=" + scrollWrapperRef.current!.offsetWidth
+        end: () => "+=" + (scrollWrapperRef.current!.offsetWidth - window.innerWidth)
       }
     });
 
@@ -255,7 +256,7 @@ export default function Projects() {
         trigger: containerRef.current,
         scrub: 1,
         start: 'top top',
-        end: () => "+=" + scrollWrapperRef.current!.offsetWidth
+        end: () => "+=" + (scrollWrapperRef.current!.offsetWidth - window.innerWidth)
       }
     });
 

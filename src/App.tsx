@@ -72,7 +72,13 @@ export default function App() {
       });
     });
 
+    // Refresh ScrollTrigger after a short delay to ensure all components are rendered and positions are correct
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 1000);
+
     return () => {
+      clearTimeout(timer);
       lenis.destroy();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
@@ -148,10 +154,9 @@ export default function App() {
             </motion.div>
 
             <motion.main 
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
-              className="py-8"
             >
               <Hero />
               <About />
