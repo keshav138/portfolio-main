@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'motion/react';
 
-import Cursor from './components/Cursor';
 import Scanlines from './components/Scanlines';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -28,13 +27,13 @@ export default function App() {
 
     // Initialize Lenis
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1.5,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -43,7 +42,7 @@ export default function App() {
       lenis.raf(time * 1000);
     });
 
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(1000, 16);
 
     // Scroll Progress Bar
     if (progressBarRef.current) {
@@ -94,7 +93,6 @@ export default function App() {
             key="main-content"
             className="relative"
           >
-            <Cursor />
             <Scanlines />
 
             {/* Scroll Progress Bar */}

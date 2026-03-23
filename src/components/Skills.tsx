@@ -75,14 +75,13 @@ const ASCII_SIDE_RIGHT = `██████████████████
 
 export default function Skills() {
   return (
-    <section className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center justify-center px-4 py-32 md:px-8 overflow-visible">
+    <section className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center justify-center px-4 py-8 md:py-32 md:px-8 overflow-visible">
       
-      {/* Background Grid Lines - Layer Promoted */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10 z-0 will-change-transform"
+      {/* Background Grid Lines - Optimized */}
+      <div className="absolute inset-0 pointer-events-none opacity-5 z-0"
            style={{ 
-             backgroundImage: 'linear-gradient(#1A1A1A 1px, transparent 1px), linear-gradient(90deg, #1A1A1A 1px, transparent 1px)', 
-             backgroundSize: '40px 40px',
-             transform: 'translateZ(0)' 
+             backgroundImage: 'radial-gradient(#1A1A1A 1px, transparent 1px)', 
+             backgroundSize: '40px 40px'
            }}>
       </div>
 
@@ -152,10 +151,10 @@ export default function Skills() {
           {SKILL_MODULES.map((module) => (
             <div
               key={module.id}
-              className={`shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative flex flex-col bg-[#050505] border transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 will-change-transform cursor-pointer ${module.span} ${
+              className={`shrink-0 w-[85vw] sm:w-[45vw] md:w-auto snap-center group relative flex flex-col bg-[#050505] border transition-all duration-300 hover:-translate-y-1 ${module.span} ${
                 module.primary 
-                  ? 'border-[#7B61FF]/40 hover:border-[#7B61FF]/80 hover:shadow-[0_0_30px_rgba(123,97,255,0.15)]' 
-                  : 'border-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)]'
+                  ? 'border-[#7B61FF]/40 hover:border-[#7B61FF]/80 hover:shadow-[0_0_20px_rgba(123,97,255,0.1)]' 
+                  : 'border-white/10 hover:border-white/20'
               }`}
             >
               {/* Corner Accents */}
@@ -195,9 +194,9 @@ export default function Skills() {
                   {module.items.map((item, idx) => (
                     <div 
                       key={idx}
-                      className={`group/skill relative overflow-hidden flex items-center justify-start px-4 py-3 md:px-5 md:py-4 font-mono font-medium text-base md:text-lg border transition-[transform,border-color,background-color,color,box-shadow] duration-300 cursor-pointer ${item.itemSpan || ''} ${
+                      className={`group/skill relative overflow-hidden flex items-center justify-start px-4 py-3 md:px-5 md:py-4 font-mono font-medium text-base md:text-lg border transition-all duration-300 cursor-pointer ${item.itemSpan || ''} ${
                         module.primary
-                          ? 'border-[#7B61FF]/20 text-white bg-[#7B61FF]/5 hover:border-[#7B61FF]/60 hover:bg-[#7B61FF]/15 hover:shadow-[0_0_20px_rgba(123,97,255,0.15)]'
+                          ? 'border-[#7B61FF]/20 text-white bg-[#7B61FF]/5 hover:border-[#7B61FF]/60 hover:bg-[#7B61FF]/15'
                           : 'border-white/5 text-zinc-300 bg-white/[0.02] hover:border-white/20 hover:text-white hover:bg-white/[0.08]'
                       }`}
                     >
@@ -206,13 +205,13 @@ export default function Skills() {
                         const Icon = item.icon as any;
                         return (
                           <Icon 
-                            className="absolute -right-4 -bottom-4 text-7xl md:text-8xl opacity-[0.07] transition-[transform,opacity] duration-500 group-hover/skill:scale-110 group-hover/skill:-translate-y-1 group-hover/skill:-translate-x-1 group-hover/skill:opacity-20"
+                            className="absolute -right-2 -bottom-2 text-5xl md:text-6xl opacity-[0.05] transition-transform duration-500 group-hover/skill:scale-110 group-hover/skill:opacity-10"
                             style={{ color: item.color }}
                           />
                         );
                       })()}
                       
-                      <span className="relative z-10 tracking-wide group-hover/skill:text-white transition-colors" style={{ textShadow: `0 0 10px ${item.color}40` }}>{item.name}</span>
+                      <span className="relative z-10 tracking-wide group-hover/skill:text-white transition-colors">{item.name}</span>
                     </div>
                   ))}
                 </div>

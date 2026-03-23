@@ -204,94 +204,92 @@ export default function Projects() {
   useEffect(() => {
     if (!containerRef.current || !scrollWrapperRef.current || !progressRef.current) return;
 
-    const sections = gsap.utils.toArray('.project-card');
-    
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        pin: true,
-        scrub: 1,
-        start: "top top",
-        onUpdate: (self) => {
-          const index = Math.round(self.progress * (sections.length - 1));
-          setActiveIndex(index);
-        },
-        end: () => "+=" + (scrollWrapperRef.current!.offsetWidth - window.innerWidth)
-      }
-    });
-
-    stRef.current = tl.scrollTrigger || null;
-
-    tl.to(sections, {
-      xPercent: -100 * (sections.length - 1),
-      ease: "none"
-    });
-
-    // Animate elements on each card
-    sections.forEach((section) => {
-      const elements = (section as HTMLElement).querySelectorAll('.animate-in');
-      if (elements.length === 0) return;
+    const ctx = gsap.context(() => {
+      const sections = gsap.utils.toArray('.project-card');
       
-      gsap.fromTo(elements, 
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: section as HTMLElement,
-            containerAnimation: tl,
-            start: "left center",
-            toggleActions: "play none none reverse"
-          }
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          onUpdate: (self) => {
+            const index = Math.round(self.progress * (sections.length - 1));
+            setActiveIndex(index);
+          },
+          end: () => "+=" + (scrollWrapperRef.current!.offsetWidth - window.innerWidth)
         }
-      );
-    });
+      });
 
-    // Progress bar animation
-    gsap.to(progressRef.current, {
-      width: '100%',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: containerRef.current,
-        scrub: 1,
-        start: 'top top',
-        end: () => "+=" + (scrollWrapperRef.current!.offsetWidth - window.innerWidth)
+      stRef.current = tl.scrollTrigger || null;
+
+      tl.to(sections, {
+        xPercent: -100 * (sections.length - 1),
+        ease: "none"
+      });
+
+      // Animate elements on each card
+      sections.forEach((section) => {
+        const elements = (section as HTMLElement).querySelectorAll('.animate-in');
+        if (elements.length === 0) return;
+        
+        gsap.fromTo(elements, 
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: section as HTMLElement,
+              containerAnimation: tl,
+              start: "left center",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Progress bar animation
+      gsap.to(progressRef.current, {
+        width: '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          scrub: 1,
+          start: 'top top',
+          end: () => "+=" + (scrollWrapperRef.current!.offsetWidth - window.innerWidth)
+        }
+      });
+
+      if (titleRef.current) {
+        gsap.to(titleRef.current, {
+          y: "+=15",
+          rotationZ: 1,
+          duration: 3,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut"
+        });
       }
-    });
 
-    let titleAnim: gsap.core.Tween | null = null;
-    if (titleRef.current) {
-      titleAnim = gsap.to(titleRef.current, {
-        y: "+=15",
-        rotationZ: 1,
-        duration: 3,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut"
-      });
-    }
-
-    const titleTargets = document.querySelectorAll('.project-title-3d');
-    let titleAnim3D: gsap.core.Tween | null = null;
-    if (titleTargets.length > 0) {
-      titleAnim3D = gsap.to(titleTargets, {
-        y: -15,
-        rotationX: 10,
-        rotationY: -10,
-        z: 50,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.2
-      });
-    }
+      const titleTargets = document.querySelectorAll('.project-title-3d');
+      if (titleTargets.length > 0) {
+        gsap.to(titleTargets, {
+          y: -15,
+          rotationX: 10,
+          rotationY: -10,
+          z: 50,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          stagger: 0.2
+        });
+      }
+    }, containerRef);
 
     return () => {
-      tl.kill();
-      if (titleAnim) titleAnim.kill();
-      if (titleAnim3D) titleAnim3D.kill();
+      ctx.revert();
     };
   }, []);
 
@@ -360,7 +358,7 @@ export default function Projects() {
       <div ref={scrollWrapperRef} className="flex h-full relative z-10" style={{ width: `${(PROJECTS.length + 1) * 100}vw` }}>
         
         {/* First Slide - ASCII Title */}
-        <div className="project-card relative w-screen h-full flex items-center justify-center px-8 overflow-hidden">
+        <div className="project-card shrink-0 relative w-screen h-full flex items-center justify-center px-8 overflow-hidden">
           {/* Subtle boundary line */}
           <div className="absolute right-0 top-[15%] bottom-[15%] w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none z-20" />
           
@@ -390,7 +388,7 @@ export default function Projects() {
 
           <div ref={titleRef} className="relative z-10 flex flex-col items-center justify-center w-full max-w-[90vw] md:max-w-4xl mx-auto" style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}>
             <div className="relative w-fit mx-auto">
-              <ScaledAscii ascii={PROJECTS_ASCII} gradient="from-[#C81D77] to-[#6710C2]" dropShadow={true} fixedHeight={true} />
+              <ScaledAscii ascii={PROJECTS_ASCII} gradient="from-[#C81D77] to-[#6710C2]" dropShadow={false} fixedHeight={true} />
               
               {/* Cheeky Text Badges */}
               <div 
@@ -410,7 +408,7 @@ export default function Projects() {
         </div>
 
         {PROJECTS.map((project, index) => (
-          <div key={index} className="project-card relative w-screen h-full flex flex-col items-center justify-center px-6 md:px-24 pt-16 md:pt-20 pb-20 md:pb-0 overflow-y-auto overflow-x-hidden">
+          <div key={index} className="project-card shrink-0 relative w-screen h-full flex flex-col items-center justify-center px-6 md:px-24 pt-8 md:pt-20 pb-8 md:pb-0 overflow-y-auto overflow-x-hidden">
             {/* Subtle boundary line (except for the last project) */}
             {index < PROJECTS.length - 1 && (
               <div className="absolute right-0 top-[15%] bottom-[15%] w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none z-20 hidden md:block" />
@@ -426,7 +424,7 @@ export default function Projects() {
                     {project.date}
                   </div>
 
-                  <ScaledAscii ascii={project.asciiTitle} gradient={project.gradient} dropShadow={true} fixedHeight={true} />
+                  <ScaledAscii ascii={project.asciiTitle} gradient={project.gradient} dropShadow={false} fixedHeight={true} />
                 </div>
                 
                 {/* Subtitle */}
@@ -465,8 +463,10 @@ export default function Projects() {
                 </div>
 
                 {/* Right: ASCII Art */}
-                <div className="flex w-full md:w-1/2 justify-center items-center select-none">
-                  {getAsciiArt(index)}
+                <div className="flex w-full md:w-1/2 justify-center items-center select-none overflow-hidden">
+                  <div className="w-full overflow-x-auto hide-scrollbar flex justify-center md:justify-end lg:justify-center">
+                    {getAsciiArt(index)}
+                  </div>
                 </div>
 
               </div>

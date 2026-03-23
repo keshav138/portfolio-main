@@ -453,10 +453,10 @@ export default function Hero() {
 
       {/* Main Content - Centered Name & Roles (The Focus) */}
       <div ref={nameRef} className="relative z-20 flex flex-col items-center justify-center pointer-events-none" style={{ willChange: 'transform' }}>
-        <h1 className="font-pixel text-[22vw] md:text-[18vw] leading-[0.85] text-[#F0F0F0] tracking-tighter m-0 p-0 text-center drop-shadow-[0_0_30px_rgba(240,240,240,0.2)]">
+        <h1 className="font-pixel text-[22vw] md:text-[18vw] leading-[0.85] text-[#F0F0F0] tracking-tighter m-0 p-0 text-center" style={{ textShadow: '0 0 20px rgba(240,240,240,0.2)' }}>
           KESHAV
         </h1>
-        <h1 className="font-pixel text-[22vw] md:text-[18vw] leading-[0.85] text-[#F0F0F0] tracking-tighter m-0 p-0 text-center drop-shadow-[0_0_30px_rgba(240,240,240,0.2)]">
+        <h1 className="font-pixel text-[22vw] md:text-[18vw] leading-[0.85] text-[#F0F0F0] tracking-tighter m-0 p-0 text-center" style={{ textShadow: '0 0 20px rgba(240,240,240,0.2)' }}>
           MAIYA
         </h1>
         

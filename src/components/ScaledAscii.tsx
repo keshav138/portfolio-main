@@ -36,11 +36,11 @@ export const ScaledAscii = ({ ascii, gradient, className = "", dropShadow = fals
   const isLeftAligned = className.includes('md:justify-start');
 
   return (
-    <div className={`overflow-x-auto hide-scrollbar ${className} ${fixedHeight ? 'w-fit mx-auto' : 'w-full'}`}>
+    <div className={`overflow-x-auto hide-scrollbar ${className} ${fixedHeight ? 'w-full md:w-fit mx-auto' : 'w-full'}`}>
       <div className={`flex items-center ${isLeftAligned ? 'justify-start' : 'justify-center'} min-w-full`}>
         <svg 
           viewBox={`0 0 ${width} ${height}`} 
-          className={`${fixedHeight ? "h-12 sm:h-16 md:h-20 lg:h-24 w-auto" : "w-full max-w-full h-auto"} flex-shrink-0`}
+          className={`${fixedHeight ? "w-full h-auto md:h-20 lg:h-24 md:w-auto" : "w-full max-w-full h-auto"} flex-shrink-0`}
           preserveAspectRatio="xMidYMid meet"
         >
           <defs>
@@ -50,8 +50,8 @@ export const ScaledAscii = ({ ascii, gradient, className = "", dropShadow = fals
             </linearGradient>
             {/* Native SVG drop shadow to prevent CSS filter bounding box artifacts */}
             {dropShadow && (
-              <filter id={filterId} x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor="#ffffff" floodOpacity="0.15" />
+              <filter id={filterId} x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#ffffff" floodOpacity="0.1" />
               </filter>
             )}
           </defs>

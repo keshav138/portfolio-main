@@ -73,7 +73,7 @@ const TRAINING = [
 
 export default function Certs() {
   return (
-    <section className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col justify-center px-6 md:px-12 lg:px-24 py-32 overflow-hidden">
+    <section className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col justify-center px-6 md:px-12 lg:px-24 py-8 md:py-32 overflow-hidden">
       
       {/* Subtle Background Text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-0 opacity-[0.03] text-white overflow-hidden">

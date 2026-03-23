@@ -70,38 +70,20 @@ export default function Education() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    colsRef.current.forEach((col, index) => {
-      if (!col) return;
-      
-      // Slide in the column itself
-      const direction = index === 0 ? -100 : 100;
-      
-      gsap.fromTo(col,
-        { opacity: 0, x: direction },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          delay: index * 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: col,
-            start: 'top 85%',
-          }
-        }
-      );
-      
-      const elements = col.querySelectorAll('.animate-in');
-      
-      if (elements.length > 0) {
-        gsap.fromTo(elements, 
-          { opacity: 0, y: 20 },
+    const ctx = gsap.context(() => {
+      colsRef.current.forEach((col, index) => {
+        if (!col) return;
+        
+        // Slide in the column itself
+        const direction = index === 0 ? -100 : 100;
+        
+        gsap.fromTo(col,
+          { opacity: 0, x: direction },
           {
             opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            delay: (index * 0.15) + 0.3, // Start after column starts sliding
+            x: 0,
+            duration: 1,
+            delay: index * 0.15,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: col,
@@ -109,20 +91,42 @@ export default function Education() {
             }
           }
         );
-      }
-      
-      const asciiArt = col.querySelector('.ascii-art');
-      if (asciiArt) {
-        gsap.to(asciiArt, {
-          y: "-=10",
-          rotationZ: index % 2 === 0 ? 1 : -1,
-          duration: 3 + (index * 0.5),
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut"
-        });
-      }
-    });
+        
+        const elements = col.querySelectorAll('.animate-in');
+        
+        if (elements.length > 0) {
+          gsap.fromTo(elements, 
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              delay: (index * 0.15) + 0.3, // Start after column starts sliding
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: col,
+                start: 'top 85%',
+              }
+            }
+          );
+        }
+        
+        const asciiArt = col.querySelector('.ascii-art');
+        if (asciiArt) {
+          gsap.to(asciiArt, {
+            y: "-=10",
+            rotationZ: index % 2 === 0 ? 1 : -1,
+            duration: 3 + (index * 0.5),
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+          });
+        }
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -136,8 +140,10 @@ export default function Education() {
         
         {/* Top: ASCII Art */}
         <div className="flex justify-center items-center flex-1 relative z-10 pt-4">
-          <div className="animate-in ascii-art relative flex flex-col items-center w-full">
-            <ScaledAscii ascii={EDU_ASCII} gradient="from-[#C11E38] to-[#8A2387]" dropShadow={true} fixedHeight={true} />
+          <div className="animate-in relative flex flex-col items-center w-full">
+            <div className="ascii-art w-full">
+              <ScaledAscii ascii={EDU_ASCII} gradient="from-[#C11E38] to-[#8A2387]" dropShadow={true} fixedHeight={true} />
+            </div>
           </div>
         </div>
 
