@@ -214,24 +214,41 @@ export default function Hero() {
   const nameRef = useRef<HTMLDivElement | null>(null);
   const stripRef = useRef<HTMLDivElement | null>(null);
   const [showMotionButton, setShowMotionButton] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
     // Check if permission is needed for iOS
-    if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+    const hasRequestPermission = (typeof DeviceOrientationEvent !== 'undefined' && 
+                                 typeof (DeviceOrientationEvent as any).requestPermission === 'function') ||
+                                 (typeof DeviceMotionEvent !== 'undefined' &&
+                                 typeof (DeviceMotionEvent as any).requestPermission === 'function');
+    
+    if (hasRequestPermission) {
       setShowMotionButton(true);
+    } else {
+      // Not iOS or doesn't need explicit permission (e.g., Android, Desktop)
+      setMotionEnabled(true);
     }
   }, []);
 
   const requestMotionPermission = async () => {
-    try {
-      const response = await (DeviceOrientationEvent as any).requestPermission();
-      if (response === 'granted') {
-        setShowMotionButton(false);
-        // The event listener is already added in the main useEffect
+    const requestPermission = (DeviceOrientationEvent as any)?.requestPermission || (DeviceMotionEvent as any)?.requestPermission;
+    
+    if (typeof requestPermission === 'function') {
+      try {
+        const response = await requestPermission();
+        if (response === 'granted') {
+          setShowMotionButton(false);
+          setMotionEnabled(true);
+        }
+      } catch (error) {
+        console.error('Motion permission error:', error);
       }
-    } catch (error) {
-      console.error('Motion permission error:', error);
+    } else {
+      // Fallback if the check passed but function is missing (unlikely)
+      setShowMotionButton(false);
+      setMotionEnabled(true);
     }
   };
 
@@ -298,6 +315,7 @@ export default function Hero() {
     };
 
     const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+      if (!motionEnabled) return;
       if (e.beta === null || e.gamma === null) return;
       
       // beta: -180 to 180 (front/back tilt)
@@ -329,7 +347,7 @@ export default function Hero() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('deviceorientation', handleDeviceOrientation);
     };
-  }, []);
+  }, [motionEnabled]);
 
   const handleBreak = (e: React.MouseEvent<HTMLPreElement>, originalArt: string, i: number) => {
     const el = e.currentTarget;
@@ -464,9 +482,9 @@ export default function Hero() {
         {showMotionButton && (
           <button 
             onClick={requestMotionPermission}
-            className="mt-8 px-4 py-2 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-mono text-[10px] tracking-widest uppercase hover:bg-white/10 transition-colors pointer-events-auto"
+            className="mt-12 px-6 py-3 border border-white/30 bg-white/10 backdrop-blur-md text-white font-mono text-[12px] md:text-[14px] tracking-[0.3em] uppercase hover:bg-white/20 transition-all duration-300 pointer-events-auto shadow-[0_0_20px_rgba(255,255,255,0.1)]"
           >
-            Enable Motion Parallax
+            [ Enable Motion Parallax ]
           </button>
         )}
       </div>

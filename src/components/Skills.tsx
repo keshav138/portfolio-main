@@ -99,7 +99,7 @@ export default function Skills() {
 
           {/* Center ASCII Heading with 3D Motion */}
           <motion.div 
-            className="flex flex-col items-center w-full lg:w-1/2 shrink-0 relative"
+            className="flex flex-col items-center w-full lg:w-1/2 shrink-0 relative px-2 md:px-0 overflow-visible"
             animate={{ 
               y: [0, -10, 0],
               rotateX: [0, 5, 0],

@@ -8,7 +8,7 @@ export const ScaledAscii = ({ ascii, gradient, className = "", dropShadow = fals
     .map(line => line.match(/^\s*/)?.[0].length || 0);
   const minLeading = leadingSpaces.length > 0 ? Math.min(...leadingSpaces) : 0;
   
-  const processedLines = rawLines.map(line => line.slice(minLeading));
+  const processedLines = rawLines.map(line => line.slice(minLeading).trimEnd());
   const maxChars = Math.max(...processedLines.map(l => l.length));
   
   // Padded lines for perfect centering with text-anchor="middle"
@@ -16,11 +16,11 @@ export const ScaledAscii = ({ ascii, gradient, className = "", dropShadow = fals
   const lines = processedLines.map(line => line.padEnd(maxChars, ' '));
 
   // Use a more accurate charWidth for JetBrains Mono (approx 0.6 * fontSize)
-  const charWidth = 60;
+  const charWidth = 65;
   const charHeight = 100;
   
-  // Calculate width with minimal padding (60 units on each side)
-  const width = maxChars * charWidth + 120;
+  // Calculate width with more breathing room (100 units on each side)
+  const width = maxChars * charWidth + 200;
   const height = lines.length * charHeight + 40;
 
   // Extract colors from gradient class (e.g., "from-[#C81D77] to-[#6710C2]")
@@ -36,11 +36,11 @@ export const ScaledAscii = ({ ascii, gradient, className = "", dropShadow = fals
   const isLeftAligned = className.includes('md:justify-start');
 
   return (
-    <div className={`overflow-x-auto hide-scrollbar ${className} ${fixedHeight ? 'w-full md:w-fit mx-auto' : 'w-full'}`}>
-      <div className={`flex items-center ${isLeftAligned ? 'justify-start' : 'justify-center'} min-w-full`}>
+    <div className={`overflow-visible ${className} ${fixedHeight ? 'w-full md:w-fit mx-auto' : 'w-full'}`}>
+      <div className={`flex items-center ${isLeftAligned ? 'justify-start' : 'justify-center'} w-full`}>
         <svg 
           viewBox={`0 0 ${width} ${height}`} 
-          className={`${fixedHeight ? "w-full h-auto md:h-20 lg:h-24 md:w-auto" : "w-full max-w-full h-auto"} flex-shrink-0`}
+          className={`${fixedHeight ? "w-full h-auto md:h-20 lg:h-24 md:w-auto" : "w-full max-w-full h-auto"} flex-shrink-0 overflow-visible`}
           preserveAspectRatio="xMidYMid meet"
         >
           <defs>
@@ -67,7 +67,7 @@ export const ScaledAscii = ({ ascii, gradient, className = "", dropShadow = fals
           >
             {lines.map((line, i) => (
               <tspan 
-                x={isLeftAligned ? "60" : width / 2} 
+                x={isLeftAligned ? "100" : width / 2} 
                 y={(i + 0.8) * charHeight + 20} 
                 key={i}
               >

@@ -386,8 +386,8 @@ export default function Projects() {
             </svg>
           </div>
 
-          <div ref={titleRef} className="relative z-10 flex flex-col items-center justify-center w-full max-w-[90vw] md:max-w-4xl mx-auto" style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}>
-            <div className="relative w-fit mx-auto">
+          <div ref={titleRef} className="relative z-10 flex flex-col items-center justify-center w-full max-w-[95vw] md:max-w-4xl mx-auto overflow-visible" style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}>
+            <div className="relative w-fit mx-auto overflow-visible">
               <ScaledAscii ascii={PROJECTS_ASCII} gradient="from-[#C81D77] to-[#6710C2]" dropShadow={false} fixedHeight={true} />
               
               {/* Cheeky Text Badges */}
@@ -416,8 +416,8 @@ export default function Projects() {
             <div className="w-full max-w-6xl mx-auto flex flex-col min-h-min my-auto justify-center">
               
               {/* TOP: Centered Title + Date */}
-              <div className="flex flex-col items-center relative mb-6 md:mb-8 w-full" style={{ perspective: '1000px' }}>
-                <div className="relative animate-in flex flex-col items-center justify-center project-title-3d w-full max-w-[90vw] md:max-w-3xl mx-auto" style={{ transformStyle: 'preserve-3d' }}>
+              <div className="flex flex-col items-center relative mb-6 md:mb-8 w-full overflow-visible" style={{ perspective: '1000px' }}>
+                <div className="relative animate-in flex flex-col items-center justify-center project-title-3d w-full max-w-[95vw] md:max-w-3xl mx-auto overflow-visible" style={{ transformStyle: 'preserve-3d' }}>
                   
                   {/* Date (Top Right, above topic) */}
                   <div className="absolute -top-6 right-0 md:-top-8 md:-right-4 font-mono text-[10px] md:text-sm text-[#AAA] tracking-widest" style={{ transform: 'translateZ(20px)' }}>
