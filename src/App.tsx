@@ -117,6 +117,13 @@ export default function App() {
                 stroke-dasharray: 300;
                 animation: drawGraph 5s linear infinite;
               }
+              @keyframes slowBlink {
+                0%, 100% { opacity: 0.2; }
+                50% { opacity: 0.8; }
+              }
+              .animate-slow-blink {
+                animation: slowBlink 4s ease-in-out infinite;
+              }
             `}</style>
 
             {/* Fixed Top Detail Strip */}

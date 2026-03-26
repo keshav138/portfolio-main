@@ -208,6 +208,31 @@ const ROLES = [
   "systems architect"
 ];
 
+const GRADIENTS = [
+  // Original
+  [
+    { r: 0, g: 229, b: 255 },
+    { r: 123, g: 97, b: 255 },
+    { r: 255, g: 0, b: 85 },
+    { r: 255, g: 170, b: 0 },
+    { r: 0, g: 255, b: 204 },
+  ],
+  // 1. #FF0F7B, #F89B29
+  [{ r: 255, g: 15, b: 123 }, { r: 248, g: 155, b: 41 }],
+  // 2. #C11E38, #220B34
+  [{ r: 193, g: 30, b: 56 }, { r: 34, g: 11, b: 52 }],
+  // 3. #8C1105, #25221E
+  [{ r: 140, g: 17, b: 5 }, { r: 37, g: 34, b: 30 }],
+  // 4. #F90C71, #30001A
+  [{ r: 249, g: 12, b: 113 }, { r: 48, g: 0, b: 26 }],
+  // 5. #EF745C, #34073D
+  [{ r: 239, g: 116, b: 92 }, { r: 52, g: 7, b: 61 }],
+  // 6. #1A2766, #AE1B1E, #FC9F32
+  [{ r: 26, g: 39, b: 102 }, { r: 174, g: 27, b: 30 }, { r: 252, g: 159, b: 50 }],
+  // 9. #010101, #E95D3C
+  [{ r: 1, g: 1, b: 1 }, { r: 233, g: 93, b: 60 }],
+];
+
 export default function Hero() {
   const headsRef = useRef<(HTMLPreElement | null)[]>([]);
   const ringsRef = useRef<(SVGGElement | null)[]>([]);
@@ -216,6 +241,12 @@ export default function Hero() {
   const [showMotionButton, setShowMotionButton] = useState(false);
   const [motionEnabled, setMotionEnabled] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [gradientIndex, setGradientIndex] = useState(0);
+
+  const handlePillClick = () => {
+    const nextIndex = Math.floor(Math.random() * GRADIENTS.length);
+    setGradientIndex(nextIndex);
+  };
 
   useEffect(() => {
     // Check if permission is needed for iOS
@@ -444,7 +475,7 @@ export default function Hero() {
 
       {/* Ascii Strip Background */}
       <div ref={stripRef} className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none" style={{ willChange: 'transform' }}>
-        <AsciiStrip />
+        <AsciiStrip colorStops={GRADIENTS[gradientIndex]} />
       </div>
 
       {/* Bobbing ASCII Art (Pushed to Edges, Interactive) */}
@@ -491,7 +522,10 @@ export default function Hero() {
 
       {/* Changing Role Tag - Anchored to bottom */}
       <div className="absolute bottom-12 md:bottom-16 w-full flex justify-center items-center z-30 pointer-events-none">
-        <div className="px-5 md:px-8 py-2 md:py-3 border border-white/10 bg-[#0A0A0A]/60 backdrop-blur-md rounded-full flex items-center gap-3 shadow-[0_0_30px_rgba(123,97,255,0.15)] relative overflow-hidden">
+        <button 
+          onClick={handlePillClick}
+          className="px-5 md:px-8 py-2 md:py-3 border border-white/10 bg-[#0A0A0A]/60 backdrop-blur-md rounded-full flex items-center gap-3 shadow-[0_0_30px_rgba(123,97,255,0.15)] relative overflow-hidden pointer-events-auto group hover:border-white/30 transition-colors duration-300"
+        >
           <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#00E5FF] animate-pulse shadow-[0_0_8px_#00E5FF]"></div>
           <div className="h-4 md:h-5 overflow-hidden relative w-[160px] md:w-[200px] flex justify-center items-center">
             {ROLES.map((role, i) => (
@@ -510,7 +544,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-        </div>
+        </button>
       </div>
 
     </section>

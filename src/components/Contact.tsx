@@ -153,7 +153,7 @@ export default function Contact() {
       />
 
       {/* Center Content: Massive Email and Links */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full relative z-10 pt-12 pb-32 gap-6 md:gap-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 w-full relative z-10 pt-12 pb-12 gap-6 md:gap-10">
         <a 
           href="mailto:keshavrajmaiya@gmail.com"
           className="group relative inline-block text-[clamp(1.2rem,4vw,6.5rem)] leading-none tracking-tight whitespace-nowrap lowercase transition-all duration-300"
@@ -193,6 +193,21 @@ export default function Contact() {
         >
           <BubbleText text="@resume" />
         </a>
+      </div>
+
+      {/* Back to Top Button */}
+      <div className="w-full flex justify-center pb-20 relative z-10">
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="group flex flex-col items-center cursor-pointer transition-all duration-500 hover:translate-y-[-8px] animate-slow-blink"
+        >
+          <span 
+            className="text-[10px] md:text-[12px] uppercase tracking-[0.5em] text-[#666] group-hover:text-[#7B61FF] transition-colors duration-300"
+            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            [ GO_UP ]
+          </span>
+        </button>
       </div>
     </section>
   );
