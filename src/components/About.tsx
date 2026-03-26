@@ -47,7 +47,7 @@ export default function About() {
             </h3>
             
             {/* Standard Paragraphs with standard readable fonts */}
-            <div className="space-y-4 md:space-y-6 text-[#A0A0A0] text-sm md:text-lg leading-relaxed text-center lg:text-left">
+            <div className="space-y-4 md:space-y-6 text-[#888] text-sm md:text-lg leading-relaxed text-center lg:text-left">
               <p>
                 I'm Keshav, from Darjeeling — yes, the tea place, yes, it's as beautiful as you're imagining. I moved to Punjab for university and stayed for the chaos.
               </p>
@@ -60,22 +60,22 @@ export default function About() {
             </div>
 
             {/* Quick Facts Grid */}
-            <div className="mt-8 md:mt-10 grid grid-cols-2 gap-4 md:gap-6 pt-6 md:pt-8 border-t border-[#222]">
+            <div className="mt-8 md:mt-10 grid grid-cols-2 gap-4 md:gap-6 pt-6 md:pt-8 border-t border-[#333]">
               <div>
-                <p className="font-mono text-[10px] md:text-xs text-[#666] uppercase tracking-widest mb-1">Location</p>
-                <p className="text-[#D1D1D1] font-medium text-sm md:text-base">Punjab, IN</p>
+                <p className="font-mono text-[10px] md:text-xs text-[#888] uppercase tracking-widest mb-1">Location</p>
+                <p className="text-[#F0F0F0] font-medium text-sm md:text-base">Punjab, IN</p>
               </div>
               <div>
-                <p className="font-mono text-[10px] md:text-xs text-[#666] uppercase tracking-widest mb-1">Hometown</p>
-                <p className="text-[#D1D1D1] font-medium text-sm md:text-base">Darjeeling, IN</p>
+                <p className="font-mono text-[10px] md:text-xs text-[#888] uppercase tracking-widest mb-1">Hometown</p>
+                <p className="text-[#F0F0F0] font-medium text-sm md:text-base">Darjeeling, IN</p>
               </div>
               <div className="mt-2 md:mt-4">
-                <p className="font-mono text-[10px] md:text-xs text-[#666] uppercase tracking-widest mb-1">Education</p>
-                <p className="text-[#D1D1D1] font-medium text-sm md:text-base">LPU (B.Tech CSE, Yr 3)</p>
+                <p className="font-mono text-[10px] md:text-xs text-[#888] uppercase tracking-widest mb-1">Education</p>
+                <p className="text-[#F0F0F0] font-medium text-sm md:text-base">LPU (B.Tech CSE, Yr 3)</p>
               </div>
               <div className="mt-2 md:mt-4">
-                <p className="font-mono text-[10px] md:text-xs text-[#666] uppercase tracking-widest mb-1">Focus</p>
-                <p className="text-[#D1D1D1] font-medium text-sm md:text-base">Backend & ML</p>
+                <p className="font-mono text-[10px] md:text-xs text-[#888] uppercase tracking-widest mb-1">Focus</p>
+                <p className="text-[#F0F0F0] font-medium text-sm md:text-base">Backend & ML</p>
               </div>
             </div>
           </div>

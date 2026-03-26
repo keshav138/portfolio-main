@@ -2,10 +2,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0A0A0A;
-  --color-accent: #7B61FF;
-  --color-text: #F0F0F0;
-  
   --font-display: "Barlow Condensed", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --font-header: "DotGothic16", sans-serif;
@@ -13,8 +9,8 @@
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: #0A0A0A;
+  color: #F0F0F0;
   font-family: var(--font-mono);
   overflow-x: hidden;
 }
@@ -59,8 +55,8 @@ body {
 
 /* Custom selection */
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
+  background: #7B61FF;
+  color: #0A0A0A;
 }
 
 /* Glitch effect */

@@ -9,36 +9,36 @@ const BubbleText = ({ text }: { text: string }) => {
     spans.forEach((span) => {
       const handleMouseEnter = function (this: HTMLSpanElement) {
         this.style.fontWeight = "900";
-        this.style.color = "rgb(255, 255, 255)";
+        this.style.color = "#F0F0F0";
 
         const leftNeighbor = this.previousElementSibling as HTMLSpanElement;
         const rightNeighbor = this.nextElementSibling as HTMLSpanElement;
 
         if (leftNeighbor) {
           leftNeighbor.style.fontWeight = "500";
-          leftNeighbor.style.color = "rgb(200, 200, 200)";
+          leftNeighbor.style.color = "#C8C8C8";
         }
         if (rightNeighbor) {
           rightNeighbor.style.fontWeight = "500";
-          rightNeighbor.style.color = "rgb(200, 200, 200)";
+          rightNeighbor.style.color = "#C8C8C8";
         }
       };
 
       const handleMouseLeave = function (this: HTMLSpanElement) {
         this.style.fontWeight = "300";
-        this.style.color = "rgb(150, 150, 150)";
+        this.style.color = "#969696";
 
         const leftNeighbor = this.previousElementSibling as HTMLSpanElement;
         const rightNeighbor = this.nextElementSibling as HTMLSpanElement;
 
         if (leftNeighbor) {
           leftNeighbor.style.fontWeight = "300";
-          leftNeighbor.style.color = "rgb(150, 150, 150)";
+          leftNeighbor.style.color = "#969696";
         }
 
         if (rightNeighbor) {
           rightNeighbor.style.fontWeight = "300";
-          rightNeighbor.style.color = "rgb(150, 150, 150)";
+          rightNeighbor.style.color = "#969696";
         }
       };
 
@@ -67,7 +67,7 @@ const BubbleText = ({ text }: { text: string }) => {
           style={{
             transition: "0.35s font-weight, 0.35s color",
             fontWeight: "300",
-            color: "rgb(150, 150, 150)",
+            color: "#969696",
           }}
           key={idx}
         >
@@ -111,7 +111,7 @@ export default function Contact() {
       lastRenderTime = timestamp - (elapsed % fpsInterval);
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#333333'; // Slightly brighter dots
+      ctx.fillStyle = '#333333';
 
       const spacing = 45; // Wider spacing
       const rows = Math.ceil(canvas.height / spacing) + 1;
@@ -142,7 +142,7 @@ export default function Contact() {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, []); // Re-run effect when theme changes to update canvas color
 
   return (
     <section className="relative w-full min-h-[60vh] bg-[#0A0A0A] text-[#F0F0F0] flex flex-col justify-between overflow-hidden">
